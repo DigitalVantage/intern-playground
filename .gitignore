@@ -30,8 +30,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# Local environment: real values stay on your machine. Only the template is committed.
 .env*
+!.env.example
 
 # vercel
 .vercel
