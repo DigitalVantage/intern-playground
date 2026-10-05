@@ -7,6 +7,8 @@ same pull request as the code.
 
 ### Docs
 
+- A working guide to Git and GitHub: taking issues, branches, rebasing,
+  getting out of trouble, opening and reviewing pull requests, useful views.
 - Conventions for commits, pull requests, the CHANGELOG, documentation and
   code comments.
 

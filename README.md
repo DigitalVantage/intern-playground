@@ -129,6 +129,8 @@ Every change, however small, goes through the same steps. The full rules for
 commits, pull requests, the CHANGELOG, documentation and code comments are in
 **[docs/conventions.md](docs/conventions.md)**. Read it before your first pull
 request.
+How to do each step in Git and on GitHub (taking an issue, rebasing,
+reviewing, where things are) is in **[docs/github-guide.md](docs/github-guide.md)**.
 
 1. **Start from an issue.** Pick one, or open one with the _Task_ template.
    Comment on it so nobody else picks it too.
