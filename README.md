@@ -36,7 +36,7 @@ short version.
 | Node.js | 24 LTS           | Install with [nvm](https://github.com/nvm-sh/nvm), never `apt`. `.nvmrc` pins it          |
 | pnpm    | 12.9.1           | `corepack enable`, which reads the version from `package.json`. Never `npm i -g pnpm`     |
 | Git     | 2.43 or newer    | `sudo apt install git`                                                                    |
-| VS Code | latest           | Open the project from the WSL terminal with `code .`                                      |
+| VS Code | latest           | In Windows, connected to WSL: [how to set it up](docs/machine-setup.md#5-vs-code)         |
 | GitHub  | account with 2FA | [How to create it](docs/machine-setup.md#2-a-github-account): 2FA, private email, SSH key |
 
 VS Code suggests the recommended extensions (ESLint, Prettier, Tailwind, WSL…)

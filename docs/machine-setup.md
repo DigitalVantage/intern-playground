@@ -126,9 +126,41 @@ email must be the private GitHub address from step 2, or the push is blocked.
 
 ## 5. VS Code
 
-Install VS Code in Windows. Open a project **from the WSL terminal** with
-`code .`, so the editor, terminal and extensions all run inside Ubuntu. The
-status bar must show `WSL: Ubuntu-24.04`.
+VS Code is the editor everyone at Digital Vantage uses. It runs as a Windows
+app, but everything it does (terminal, Git, Node, extensions, the files)
+happens **inside WSL**. That split is the whole trick: a Windows window,
+Linux everywhere else.
+
+### Install
+
+1. Download the **User Installer** for Windows (64-bit) from
+   [code.visualstudio.com](https://code.visualstudio.com/). Install it in
+   **Windows**, not inside Ubuntu.
+2. In the installer, on _Select Additional Tasks_, tick:
+   - **Add to PATH**. Without it, `code .` does not work from WSL;
+   - _Add "Open with Code" action_ to the file and folder context menus;
+   - _Register Code as an editor for supported file types_.
+3. Start VS Code and install the **WSL** extension (`ms-vscode-remote.remote-wsl`):
+   _Extensions_ (`Ctrl+Shift+X`) → search "WSL" → _Install_.
+4. Close VS Code. In the **Ubuntu terminal**:
+   ```bash
+   cd ~/projects/intern-playground
+   code .
+   ```
+   The first time, it installs a small server inside Ubuntu (it takes a minute)
+   and opens a window. The bottom-left corner must show **`WSL: Ubuntu-24.04`**.
+   If it shows nothing, you opened a Windows copy of the folder: close the
+   window and use `code .` from Ubuntu again.
+
+Always open projects this way, with `code .` from the Ubuntu terminal (or
+_File → Open Recent_ entries marked `[WSL: Ubuntu-24.04]`). Opening them from
+the Windows Explorer through `\\wsl$` is slow and runs the wrong Node.
+
+### Extensions
+
+When you open this repository, VS Code offers the **recommended extensions**
+(from `.vscode/extensions.json`). Click _Install All_. They install "in WSL",
+which VS Code shows as a separate section of the list: that is correct.
 
 | Extension                 | ID                                  | Why                                |
 | ------------------------- | ----------------------------------- | ---------------------------------- |
@@ -139,10 +171,35 @@ status bar must show `WSL: Ubuntu-24.04`.
 | Vitest                    | `vitest.explorer`                   | run tests from the editor          |
 | GitHub Pull Requests      | `github.vscode-pull-request-github` | review pull requests in the editor |
 
-Install extensions "in WSL", not locally in Windows. VS Code shows them as a
-separate section in the list. This repository recommends them when you first
-open it, and its `.vscode/settings.json` turns on format on save and ESLint
-fixes on save.
+### Settings
+
+The repository's `.vscode/settings.json` already turns on **format on save**
+(Prettier), **ESLint fixes on save** and Unix line endings. Do not override
+them in your user settings for this project. Check it works: add a few spaces
+somewhere in `src/app/page.tsx` and save. They should disappear.
+
+Worth turning on for yourself (_File → Preferences → Settings_):
+
+- _Auto Save_ → `onFocusChange`;
+- _Settings Sync_ (the account icon, bottom left → _Backup and Sync Settings_,
+  sign in with GitHub), so a new computer gets your setup in a minute.
+
+### Shortcuts you will use every day
+
+| Shortcut          | Does                                      |
+| ----------------- | ----------------------------------------- |
+| `Ctrl+P`          | open a file by name                       |
+| `Ctrl+Shift+P`    | every command (type what you want)        |
+| `` Ctrl+` ``      | the terminal (it is the Ubuntu one)       |
+| `Ctrl+Shift+G`    | Source Control: changes, staging, commits |
+| `F12` / `Alt+F12` | go to definition / peek it                |
+| `Shift+F12`       | find every use                            |
+| `F2`              | rename a symbol everywhere                |
+| `Ctrl+Shift+F`    | search the whole project                  |
+
+The Source Control panel is fine for looking at changes. Commit from the
+terminal until the hooks and the message format are second nature. The editor
+hides what the hooks print.
 
 ## 6. Connect Git to GitHub
 
@@ -175,8 +232,9 @@ repository:
 - [ ] `gh auth status` shows you logged in to github.com
 - [ ] `pnpm install && pnpm typecheck && pnpm test --run` all pass
 - [ ] `pnpm dev`, then http://localhost:3000 shows the interns list
-- [ ] VS Code opened with `code .` shows `WSL: Ubuntu-24.04`, with ESLint and
-      Prettier active
+- [ ] VS Code opened with `code .` shows `WSL: Ubuntu-24.04` bottom left
+- [ ] the recommended extensions are installed in WSL, and saving a file
+      reformats it
 - [ ] a test commit on your own branch prints no hook errors
 
 Something fails? Copy the exact command and its full output into a message to
