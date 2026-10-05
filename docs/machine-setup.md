@@ -44,7 +44,35 @@ swap=8GB
 localhostForwarding=true
 ```
 
-## 2. Tools inside WSL
+## 2. A GitHub account
+
+Do this first: it only needs a browser, and the next steps use it. A personal
+account is fine. It stays yours after the internship.
+
+1. Sign up at **[github.com/signup](https://github.com/signup)** with an email
+   you will keep. A university address expires.
+2. Pick a username you would show an employer, for example `anna-kowalska`,
+   not `xXcoderXx`. It appears on every commit you make.
+3. Confirm the email address. GitHub sends a code.
+4. **Turn on two-factor authentication:** _Settings → Password and
+   authentication → Enable two-factor authentication_. Use an authenticator app
+   (Google Authenticator, Microsoft Authenticator, 1Password). **Download the
+   recovery codes and keep them outside your laptop.** Lose the phone without
+   them, and the account is gone. Digital Vantage requires 2FA, so you cannot
+   be added without it.
+5. **Keep your email private:** _Settings → Emails_, tick **Keep my email
+   addresses private** and **Block command line pushes that expose my email**.
+   GitHub then shows you a private address like
+   `12345678+anna-kowalska@users.noreply.github.com`. Copy it, because Git uses
+   it in the next step. Every commit in a public repository shows its author's
+   email to anyone.
+6. Add your real name and a photo under _Settings → Public profile_, so
+   reviewers know who they are talking to.
+7. **Send your username to your mentor.** You get an invitation by email and on
+   [github.com/DigitalVantage](https://github.com/DigitalVantage). Accept it
+   within 7 days, or it expires.
+
+## 3. Tools inside WSL
 
 Use the same versions as everyone else. A different version gives you bugs
 that nobody else can reproduce.
@@ -66,15 +94,16 @@ Git setup:
 
 ```bash
 git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
+git config --global user.email "12345678+your-username@users.noreply.github.com"  # from step 2.5
 git config --global init.defaultBranch main
 git config --global pull.ff only
 git config --global core.autocrlf input
 ```
 
-`core.autocrlf input` keeps Windows CRLF line endings out of commits.
+`core.autocrlf input` keeps Windows CRLF line endings out of commits. The
+email must be the private GitHub address from step 2, or the push is blocked.
 
-## 3. VS Code
+## 4. VS Code
 
 Install VS Code in Windows. Open a project **from the WSL terminal** with
 `code .`, so the editor, terminal and extensions all run inside Ubuntu. The
@@ -94,19 +123,20 @@ separate section in the list. This repository recommends them when you first
 open it, and its `.vscode/settings.json` turns on format on save and ESLint
 fixes on save.
 
-## 4. GitHub access
+## 5. Connect Git to GitHub
 
-- An account with **two-factor authentication**. Organisations require it.
-- An SSH key, so you never type a password:
-  ```bash
-  ssh-keygen -t ed25519 -C "you@example.com"
-  gh auth login            # GitHub.com → SSH → upload the key
-  ssh -T git@github.com    # "Hi <username>! You've successfully authenticated"
-  ```
-- Ask your mentor to add you to the repository. Until then you can read it, but
-  not push branches.
+An SSH key lets Git talk to GitHub without a password:
 
-## 5. Checklist
+```bash
+ssh-keygen -t ed25519 -C "12345678+your-username@users.noreply.github.com"
+gh auth login            # GitHub.com → SSH → upload the key → log in in the browser
+ssh -T git@github.com    # "Hi <username>! You've successfully authenticated"
+```
+
+Until your mentor adds you to the repository you can clone and read it, but not
+push branches.
+
+## 6. Checklist
 
 Your machine is ready when every line passes in the WSL terminal, inside this
 repository:
@@ -116,6 +146,8 @@ repository:
 - [ ] `node -v` prints `v24.x`
 - [ ] `pnpm -v` prints `12.9.1`
 - [ ] `git config core.autocrlf` prints `input`
+- [ ] GitHub: 2FA on, email private, invitation to DigitalVantage accepted
+- [ ] `git config user.email` prints your `@users.noreply.github.com` address
 - [ ] `ssh -T git@github.com` prints "successfully authenticated"
 - [ ] `gh auth status` shows you logged in to github.com
 - [ ] `pnpm install && pnpm typecheck && pnpm test --run` all pass
