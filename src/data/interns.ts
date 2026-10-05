@@ -1,6 +1,9 @@
 /**
  * Everyone who has completed the first exercise. Add yourself in your first
  * pull request — keep the list sorted by name; the tests check it.
+ *
+ * This repository and its website are public, permanently. Use the name you are
+ * happy to show the world: your full name, your first name or a nickname.
  */
 export type Intern = {
   name: string
