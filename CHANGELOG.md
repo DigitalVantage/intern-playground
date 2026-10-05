@@ -7,6 +7,8 @@ same pull request as the code.
 
 ### Docs
 
+- Recommended free React and Next.js video courses, in English and Polish, with
+  how to turn on translated subtitles.
 - The intern docs exist in English and in simple Polish (`README.pl.md`,
   `docs/pl/`), with a language switch at the top of each.
 - A step-by-step walkthrough of the first pull request: every command, what
