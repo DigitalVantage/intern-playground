@@ -30,23 +30,25 @@ nobody else can reproduce. Setting up from scratch? Follow
 **[docs/machine-setup.md](docs/machine-setup.md)** step by step. Below is the
 short version.
 
-| Tool    | Version          | Notes                                                                                 |
-| ------- | ---------------- | ------------------------------------------------------------------------------------- |
-| Windows | 11 with WSL2     | Ubuntu 24.04 LTS. Keep the repo in `~/projects`, **never** under `/mnt/c`             |
-| Node.js | 24 LTS           | Install with [nvm](https://github.com/nvm-sh/nvm), never `apt`. `.nvmrc` pins it      |
-| pnpm    | 12.9.1           | `corepack enable`, which reads the version from `package.json`. Never `npm i -g pnpm` |
-| Git     | 2.43 or newer    | `sudo apt install git`                                                                |
-| VS Code | latest           | Open the project from the WSL terminal with `code .`                                  |
-| GitHub  | account with 2FA | SSH key `ed25519`, plus `gh` (GitHub CLI) is handy                                    |
+| Tool    | Version          | Notes                                                                                     |
+| ------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| Windows | 11 with WSL2     | Ubuntu 24.04 LTS. Keep the repo in `~/projects`, **never** under `/mnt/c`                 |
+| Node.js | 24 LTS           | Install with [nvm](https://github.com/nvm-sh/nvm), never `apt`. `.nvmrc` pins it          |
+| pnpm    | 12.9.1           | `corepack enable`, which reads the version from `package.json`. Never `npm i -g pnpm`     |
+| Git     | 2.43 or newer    | `sudo apt install git`                                                                    |
+| VS Code | latest           | Open the project from the WSL terminal with `code .`                                      |
+| GitHub  | account with 2FA | [How to create it](docs/machine-setup.md#2-a-github-account): 2FA, private email, SSH key |
 
 VS Code suggests the recommended extensions (ESLint, Prettier, Tailwind, WSL…)
 the first time you open the folder. Accept them.
 
-One-time Git setup:
+One-time Git setup. Use your private GitHub email
+([how to get it](docs/machine-setup.md#2-a-github-account)), because commits in
+a public repository show the author's address:
 
 ```bash
 git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
+git config --global user.email "12345678+your-username@users.noreply.github.com"
 git config --global pull.ff only
 git config --global core.autocrlf input
 ```
