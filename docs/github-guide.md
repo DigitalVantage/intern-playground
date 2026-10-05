@@ -1,213 +1,191 @@
-# Git i GitHub w praktyce
+# Git and GitHub: a working guide
 
-Jak robić codzienne rzeczy: wziąć zadanie, pracować nad nim, oddać je do
-sprawdzenia i sprawdzić zadanie kolegi. Są tu polecenia do terminala i opis,
-gdzie kliknąć na GitHubie. Zasady (jak pisać commity, co wkłada się do jednego
-pull requesta) są w [conventions.md](conventions.md).
+🇵🇱 [Wersja polska](pl/github-guide.md)
 
-## 1. Codzienny cykl pracy
+How to do the everyday things: take a task, work on it, get it reviewed,
+review someone else's. Commands for the terminal, and where to click on GitHub.
+The rules behind them (commit messages, what goes in one pull request) are in
+[conventions.md](conventions.md).
+
+## 1. The daily loop
 
 ```mermaid
 flowchart LR
-    I[Wybierz zadanie] --> A[Przypisz do siebie]
-    A --> B[Nowa gałąź od main]
-    B --> C[Małe commity]
-    C --> P[Push + pull request]
+    I[Pick an issue] --> A[Assign yourself]
+    A --> B[Branch from fresh main]
+    B --> C[Commit small steps]
+    C --> P[Push + open a pull request]
     P --> R{Review + CI}
-    R -- poprawki --> C
-    R -- akceptacja + zielone --> M[Merge]
+    R -- changes requested --> C
+    R -- approved + green --> M[Merge]
     M --> I
 ```
 
-## 2. Jak znaleźć i wziąć zadanie
+## 2. Finding and taking a task
 
-### Gdzie są zadania
+### Where the tasks are
 
-Wejdź w zakładkę **Issues**. W polu wyszukiwania nad listą możesz wpisać
-filtr. Gotowe filtry:
+| What you want                     | Where                                                                |
+| --------------------------------- | -------------------------------------------------------------------- |
+| Everything open in this milestone | **Issues** tab → _Milestones_ → the current one                      |
+| Nobody is working on it yet       | Issues search: `is:open no:assignee milestone:"M1: The bot answers"` |
+| Easy ones to start with           | `is:open no:assignee label:"good first issue"`                       |
+| Your track                        | `is:open label:"track: data"` (or your track's label)                |
+| What you have taken               | `is:open assignee:@me`                                               |
+| How far the milestone is          | **Issues** → _Milestones_: a progress bar and the due date           |
 
-| Chcesz zobaczyć…                        | Wpisz w wyszukiwarkę Issues                    |
-| --------------------------------------- | ---------------------------------------------- |
-| zadania, których nikt jeszcze nie wziął | `is:open no:assignee`                          |
-| zadania ćwiczeniowe                     | `is:open no:assignee label:practice`           |
-| łatwe zadania na start                  | `is:open no:assignee label:"good first issue"` |
-| zadania, które wziąłeś                  | `is:open assignee:@me`                         |
-| zadania z danego etapu (milestone)      | **Issues** → **Milestones** → kliknij etap     |
+Type the search into the box above the issue list, then bookmark the page:
+it becomes your personal view.
 
-**Wskazówka:** gdy wpiszesz filtr, dodaj stronę do zakładek w przeglądarce.
-Będziesz mieć swój widok zadań pod jednym kliknięciem.
+### Taking one
 
-### Jak wziąć zadanie
+1. Open the issue and read it to the end, including **Blocked by #…**. If a
+   blocker is still open, pick something else.
+2. In the right sidebar, **Assignees** → _assign yourself_.
+3. Comment `Taking this` and, if it helps, one line on how you plan to do it.
+4. At most **two** issues assigned at a time. Stuck for a day? Unassign
+   yourself, comment where you stopped, and say so on Discord.
 
-1. Otwórz zadanie i **przeczytaj je do końca**. Jeśli jest tam linijka
-   **Blocked by #…**, a tamto zadanie jest jeszcze otwarte, wybierz inne.
-2. Po prawej: **Assignees** → **assign yourself**.
-3. Napisz komentarz `Biorę to` (albo `Taking this`).
-4. Miej **najwyżej dwa** zadania naraz. Utknąłeś na cały dzień? Odepnij się z
-   zadania (kliknij swoje zdjęcie przy **Assignees**), napisz w komentarzu, gdzie
-   skończyłeś, i daj znać na Discordzie.
-
-To samo z terminala (program `gh`):
+From the terminal (with `gh`):
 
 ```bash
-gh issue list --search "no:assignee"      # zadania bez nikogo
-gh issue view 12                          # przeczytaj zadanie nr 12
-gh issue edit 12 --add-assignee @me       # weź zadanie nr 12
+gh issue list --milestone "M1: The bot answers" --search "no:assignee"
+gh issue view 12                     # read it
+gh issue edit 12 --add-assignee @me  # take it
+gh issue comment 12 --body "Taking this"
 ```
 
-## 3. Praca nad zadaniem
+## 3. Working on it
 
 ```bash
-git switch main
-git pull                                  # zawsze zaczynaj od najnowszego main
-git switch -c feat/12-krotki-opis         # nowa gałąź: rodzaj/numer-zadania-opis
+git switch main && git pull                  # always start from fresh main
+git switch -c feat/12-verify-signature       # prefix/issue-number-short-name
+
+# … work …
+git status                                   # what changed
+git diff                                     # how it changed
+git add -p                                   # stage piece by piece and read every hunk
+git commit                                   # the editor opens: subject, blank line, why
+git push -u origin HEAD                      # first push of this branch
 ```
 
-Rodzaje gałęzi:
+- **`git add -p`, not `git add .`.** You see every change before it goes in,
+  so a `.env`, a debug `console.log` or a stray file never slips through.
+- Commit whenever one small step works. Push at least once a day, so your work
+  is not only on your laptop.
 
-| Początek nazwy | Kiedy              |
-| -------------- | ------------------ |
-| `feat/`        | coś nowego         |
-| `fix/`         | naprawa błędu      |
-| `docs/`        | tylko dokumentacja |
-| `test/`        | tylko testy        |
+### Keeping your branch up to date
 
-Potem pracujesz i zapisujesz zmiany:
-
-```bash
-git status                                # co się zmieniło
-git diff                                  # jak się zmieniło (wyjście: klawisz q)
-git add -p                                # wybierz zmiany: y = tak, n = nie
-git commit -m "feat(home): show the date"   # zapisz z opisem po angielsku
-git push -u origin HEAD                   # wyślij na GitHuba (za pierwszym razem)
-git push                                  # kolejne razy wystarczy tak
-```
-
-- **Używaj `git add -p`, a nie `git add .`** Widzisz każdą zmianę, zanim ją
-  zapiszesz, więc przypadkiem nie wyślesz pliku `.env` ani `console.log`
-  zostawionego do testów.
-- Rób commit za każdym razem, gdy mały krok działa. **Wysyłaj (push)
-  przynajmniej raz dziennie**, żeby Twoja praca nie była tylko na laptopie.
-
-### Gdy `main` zmienił się w trakcie Twojej pracy
-
-Ktoś dołączył swoją zmianę, a Ty chcesz mieć ją u siebie:
+When `main` moved on while you were working:
 
 ```bash
 git fetch
-git rebase origin/main
+git rebase origin/main        # replay your commits on top of the new main
+# conflict? fix the files, then:
+git add <file> && git rebase --continue
+git push --force-with-lease   # only on YOUR branch, never on main
 ```
 
-Jeśli pojawi się konflikt: popraw pliki (jak w kroku 12
-[pierwszego pull requesta](first-pull-request.md)), potem:
+`--force-with-lease` refuses to overwrite commits someone else pushed to your
+branch in the meantime. Never use a plain `--force`.
+
+### Getting out of trouble
+
+| Situation                                             | Command                                                                |
+| ----------------------------------------------------- | ---------------------------------------------------------------------- |
+| Throw away changes in one file                        | `git restore <file>`                                                   |
+| Unstage a file (keep the changes)                     | `git restore --staged <file>`                                          |
+| Undo the last commit, keep its changes                | `git reset --soft HEAD~1` (not pushed yet!)                            |
+| Fix the last commit's message or add a forgotten file | `git commit --amend` (not pushed yet!)                                 |
+| Undo a commit that is already pushed or merged        | `git revert <sha>`: a new commit that reverses it                      |
+| Put work aside to switch branches                     | `git stash`, later `git stash pop`                                     |
+| See the history as a tree                             | `git log --oneline --graph --all`                                      |
+| Committed a secret                                    | **Stop. Tell your mentor now.** Do not try to rewrite history yourself |
+
+Rule of thumb: rewriting history (`reset`, `amend`, `rebase`) is fine for
+commits that exist **only on your laptop or your own branch**. Once they are on
+`main`, use `revert`.
+
+## 4. Opening a pull request
 
 ```bash
-git add <plik>
-git rebase --continue
-git push --force-with-lease               # TYLKO na swojej gałęzi, nigdy na main
+gh pr create --fill --assignee @me    # or the "Compare & pull request" button on GitHub
 ```
 
-### Gdy coś pójdzie nie tak
+- **Title:** a commit subject (`feat(report): save the report on submit`).
+- **Description:** the template's three questions. `Closes #12` links the
+  issue, which then closes itself on merge.
+- **Reviewers** (right sidebar): your teammate first. The code owner is added
+  automatically.
+- **Draft pull request:** open it early as a _draft_ if you want feedback
+  before it is finished. Mark it _Ready for review_ when it is done.
 
-| Sytuacja                                                  | Polecenie                                               |
-| --------------------------------------------------------- | ------------------------------------------------------- |
-| chcę cofnąć zmiany w pliku (jeszcze bez commita)          | `git restore <plik>`                                    |
-| dodałem plik przez `git add`, a nie chciałem              | `git restore --staged <plik>`                           |
-| chcę cofnąć ostatni commit, ale zostawić zmiany w plikach | `git reset --soft HEAD~1` (tylko przed push!)           |
-| literówka w opisie ostatniego commita                     | `git commit --amend -m "nowy opis"` (tylko przed push!) |
-| chcę na chwilę odłożyć zmiany i wrócić do nich później    | `git stash`, a potem `git stash pop`                    |
-| chcę zobaczyć historię                                    | `git log --oneline --graph` (wyjście: `q`)              |
-| **wysłałem hasło albo klucz**                             | **Stop. Od razu napisz do opiekuna.**                   |
+### Reading a pull request page
 
-Zasada: zmieniać historię (`reset`, `amend`, `rebase`) możesz tylko w commitach,
-które są **u Ciebie albo na Twojej gałęzi**. To, co już jest w `main`, zostaje
-na zawsze.
+| Tab               | What it shows                                                       |
+| ----------------- | ------------------------------------------------------------------- |
+| **Conversation**  | description, comments, review verdicts, the merge box at the bottom |
+| **Commits**       | the commits, one by one: check they tell a story                    |
+| **Checks**        | CI. Red? Click _Details_ → the failing step → the log               |
+| **Files changed** | the diff. This is where review happens                              |
 
-## 4. Pull request
+The merge box tells you exactly what is still missing: an approval, a green
+check, unresolved conversations.
 
-```bash
-gh pr create --fill --assignee @me
-```
+## 5. Reviewing your teammate's pull request
 
-albo na GitHubie żółty pasek **Compare & pull request**.
+Find what waits for you: **Pull requests** tab →
+`is:open review-requested:@me`, or `gh pr list --search "review-requested:@me"`.
 
-- **Tytuł:** taki jak opis commita, np. `feat(home): show the date`.
-- **Opis:** wypełnij szablon (może być po polsku). Wpisz `Closes #12` z numerem
-  zadania. Wtedy zadanie zamknie się samo po merge'u.
-- **Reviewers** (po prawej): kolega z praktyk. Opiekun dopisze się sam.
-- **Draft:** jeśli chcesz pokazać pracę, zanim jest gotowa, wybierz _Create draft
-  pull request_. Gdy skończysz, kliknij **Ready for review**.
+1. **Files changed** → read the whole diff once before commenting.
+2. Click the **+** next to a line to comment on it. Use **Start a review**, not
+   _Add single comment_, so your comments arrive together.
+3. To propose a concrete change, use the _suggestion_ button (or a
+   ` ```suggestion ` block). The author applies it with one click.
+4. Pull the branch and run it if the change is not obvious from the diff:
+   `gh pr checkout 14`, then `pnpm dev`.
+5. **Finish your review** → choose:
+   - **Comment**: questions, nothing blocking;
+   - **Approve**: you would be fine maintaining this code;
+   - **Request changes**: something must change before merge, and you said
+     what.
 
-### Zakładki na stronie pull requesta
+What to look for, in this order: does it do what the issue asks · is it
+tested · will the next person understand it · naming and small things.
+Be specific and kind: comment on the code, not the person. "This breaks when
+`hours` is empty, see line 12" helps; "this is wrong" does not.
 
-| Zakładka          | Co tam jest                                                            |
-| ----------------- | ---------------------------------------------------------------------- |
-| **Conversation**  | opis, komentarze, decyzje z review, na dole przycisk merge             |
-| **Commits**       | Twoje commity po kolei                                                 |
-| **Checks**        | automatyczne sprawdzanie (CI). Czerwone? **Details** → przeczytaj błąd |
-| **Files changed** | wszystkie zmiany w kodzie. Tu robi się review                          |
+### When you are the author
 
-Na samym dole zakładki **Conversation** GitHub pisze, czego jeszcze brakuje do
-merge'a: akceptacji, zielonego sprawdzania albo odpowiedzi na komentarze.
+- Answer **every** comment: a change, or a reason why not.
+- Push fixes as **new commits** during review, so the reviewer sees only what
+  changed since they last looked.
+- Let the reviewer resolve their own conversations.
+- After the last change, click **Re-request review** (the circular arrow next
+  to their name).
 
-## 5. Review: sprawdzanie pull requesta kolegi
+## 6. Other places worth knowing
 
-Gdzie są PR-y czekające na Ciebie: zakładka **Pull requests** → filtr
-`is:open review-requested:@me`.
+| Place                                                        | What for                                                      |
+| ------------------------------------------------------------ | ------------------------------------------------------------- |
+| [github.com/notifications](https://github.com/notifications) | everything that mentions you or waits for you. Check it daily |
+| **Watch** button on the repository → _Custom_                | choose to be notified about issues, pull requests, releases   |
+| **Actions** tab                                              | every CI run, with logs                                       |
+| **Insights → Contributors / Pulse**                          | what happened in the repository this week                     |
+| Press `?` anywhere on GitHub                                 | keyboard shortcuts (`t` finds a file, `.` opens the editor)   |
+| Press `/` on any page                                        | search                                                        |
 
-1. Otwórz **Files changed** i przeczytaj **całość**, zanim cokolwiek napiszesz.
-2. Najedź na linijkę i kliknij niebieski **+**, żeby zostawić komentarz. Wybierz
-   **Start a review** (a nie _Add single comment_), żeby komentarze przyszły
-   razem.
-3. Chcesz zaproponować konkretną zmianę? W komentarzu kliknij ikonę
-   **±** (_suggestion_). Autor przyjmie ją jednym kliknięciem.
-4. Jeśli nie jesteś pewien, czy działa, uruchom to u siebie:
-   ```bash
-   gh pr checkout 14        # 14 to numer pull requesta
-   pnpm dev
-   ```
-5. Na górze kliknij **Review changes** (albo **Finish your review**) i wybierz:
-   - **Comment**: masz pytania, ale nic nie blokuje;
-   - **Approve**: wszystko w porządku;
-   - **Request changes**: coś trzeba poprawić przed merge'em (napisz co).
+## 7. What protects `main`
 
-Na co patrzeć, po kolei:
+`main` only changes through a pull request, and the pull request can only be
+merged when:
 
-1. Czy robi to, o co prosi zadanie?
-2. Czy są testy?
-3. Czy następna osoba zrozumie ten kod?
-4. Nazwy i drobiazgi.
+- CI (`Lint, typecheck, test, build`) is green, on a branch up to date with
+  `main`;
+- it has an approving review (from a code owner, where the repository has
+  `CODEOWNERS`), given **after** the last push;
+- every review conversation is resolved.
 
-**Pisz konkretnie i życzliwie.** Komentujesz kod, nie człowieka. Dobrze:
-„Gdy `hours` jest puste, tu będzie błąd, zobacz linijkę 12”. Źle: „to jest
-złe”.
-
-### Gdy to Ty jesteś autorem
-
-- Odpowiedz na **każdy** komentarz: poprawką albo wyjaśnieniem.
-- Poprawki wysyłaj jako **nowe commity**, żeby było widać, co się zmieniło.
-- Nie zamykaj (_Resolve_) cudzych wątków. Zamyka je osoba, która pytała.
-- Po poprawkach kliknij **Re-request review** (okrągła strzałka obok nazwiska).
-
-## 6. Inne przydatne miejsca
-
-| Miejsce                                                      | Po co                                           |
-| ------------------------------------------------------------ | ----------------------------------------------- |
-| [github.com/notifications](https://github.com/notifications) | wszystko, co Cię dotyczy. Sprawdzaj codziennie  |
-| przycisk **Watch** na stronie repo                           | ustawiasz, o czym chcesz dostawać powiadomienia |
-| zakładka **Actions**                                         | każde automatyczne sprawdzanie, z logami        |
-| klawisz `t` na stronie repo                                  | szybkie szukanie pliku                          |
-| klawisz `.` na stronie repo                                  | otwiera edytor kodu w przeglądarce              |
-
-## 7. Co chroni `main`
-
-`main` zmienia się **tylko przez pull request**. Pull request można dołączyć
-dopiero, gdy:
-
-- automatyczne sprawdzanie (_Lint, typecheck, test, build_) jest zielone;
-- opiekun zaakceptował zmianę **po** ostatnim pushu;
-- wszystkie wątki w review są rozwiązane.
-
-Wysłania zmian prosto na `main`, nadpisania go i usunięcia GitHub nie pozwala.
-Nie da się tego obejść i nie ma takiej potrzeby: jeśli przycisk merge pisze,
-czego brakuje, to jest Twój następny krok.
+Force-pushing to `main` and deleting it are blocked. You cannot get around
+this, and you do not need to: if the merge box says something is missing, that
+is the next thing to do.
