@@ -196,12 +196,28 @@ reviewer can see what changed.
 6. Commit (`feat(interns): add Anna Kowalska`), push and open the pull request.
 7. Respond to the review until it is merged. Your name is then on the home page.
 
-## Getting help
+## Communication
 
-- Stuck for more than 30 minutes? Ask. Say what you tried and paste the exact
-  error message, not a paraphrase.
-- Questions about a specific change go in the pull request, where everyone can
-  learn from the answer.
+| Where                                                                                            | What goes there                                                     |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| [Discord, interns channel](https://discord.com/channels/1499084674830565407/1556578325495808030) | questions, being stuck, "can someone look at my PR?", day-to-day    |
+| GitHub issue                                                                                     | a task or a bug: anything someone has to do                         |
+| Pull request comments                                                                            | anything about a specific change, so the answer stays with the code |
+
+How to join Discord: [docs/machine-setup.md](docs/machine-setup.md#3-discord).
+The invite link comes from your mentor and is never posted here.
+
+- **Stuck for more than 30 minutes? Ask on Discord.** Say what you tried and
+  paste the exact error inside a code block (three backticks), not a
+  paraphrase or a screenshot of text.
+- **Reply in a thread** under the question, so the channel stays readable.
+- **A decision made on Discord goes to GitHub.** If a conversation changes a
+  task, write the outcome in the issue or pull request. Chat history is not
+  documentation.
+- **Link, don't describe:** paste the URL of the issue, pull request or line of
+  code you mean.
+- **No secrets on Discord either:** no passwords, tokens or `.env` contents,
+  not even in a direct message.
 
 ## License
 
