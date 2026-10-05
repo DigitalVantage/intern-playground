@@ -1,0 +1,61 @@
+name: Onboarding
+description: Your personal checklist for the first week. Everyone opens their own.
+title: 'Onboarding: <your first name>'
+labels: [onboarding]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Open this on your first day, then **assign it to yourself** (right sidebar → Assignees → *assign yourself*).
+        Go through the steps **in order** and tick each box when it is done — the issue then shows your progress to you and your mentor.
+        Stuck on a step for more than 30 minutes? Ask on Discord and link this issue.
+  - type: checkboxes
+    id: day-one
+    attributes:
+      label: 1. Your machine and accounts (docs/machine-setup.md)
+      options:
+        - label: GitHub account with 2FA and a private email; username sent to your mentor; invitation to DigitalVantage accepted
+        - label: Discord account with 2FA; joined the Digital Vantage server; nickname set to your real name; introduced yourself in the interns channel
+        - label: WSL2 + Ubuntu 24.04, Node 24, pnpm via corepack, Git configured with your private email
+        - label: VS Code opened from WSL with the recommended extensions
+        - label: SSH key on GitHub (`ssh -T git@github.com` greets you by name)
+        - label: Every line of the checklist in docs/machine-setup.md section 7 passes
+  - type: checkboxes
+    id: read
+    attributes:
+      label: 2. Read before writing code
+      options:
+        - label: README.md, top to bottom
+        - label: docs/conventions.md (commits, pull requests, CHANGELOG, documentation)
+        - label: docs/github-guide.md (taking issues, branches, review)
+  - type: checkboxes
+    id: first-pr
+    attributes:
+      label: 3. Your first pull request (README → "Your first pull request")
+      options:
+        - label: Repository cloned, `.env.local` created, `pnpm dev` shows the interns list
+        - label: Branch `feat/add-<your-github-username>`; yourself added to `src/data/interns.ts`, sorted
+        - label: Saw the test fail when you put yourself in the wrong place, then fixed it
+        - label: CHANGELOG line; Conventional Commit; pull request opened with the template filled in
+        - label: Your teammate requested as a reviewer; every review comment answered
+        - label: The other one merged first? Rebased on `main` and resolved the conflict in `interns.ts` yourself (docs/github-guide.md §3)
+        - label: Merged — your name is on the home page
+  - type: checkboxes
+    id: review
+    attributes:
+      label: 4. Your first review
+      options:
+        - label: Reviewed your teammate's first pull request with "Start a review" — at least one comment or suggestion, then Approve or Request changes
+  - type: checkboxes
+    id: practice
+    attributes:
+      label: 5. One practice task
+      options:
+        - label: Took one unassigned issue labelled `practice` (search `is:open no:assignee label:practice`), assigned yourself, and merged it — each of you takes a different one
+  - type: checkboxes
+    id: project
+    attributes:
+      label: 6. On to the real project
+      options:
+        - label: Read docs/architecture.md in DigitalVantage/discord-daily-report
+        - label: Took issue #4 there (your own development bot) and agreed with your teammate who starts on which track

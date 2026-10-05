@@ -14,6 +14,8 @@ same pull request as the code.
 
 ### Added
 
+- Onboarding issue template: a personal, ordered first-week checklist each
+  intern opens for themselves.
 - `.env.example` with the page title as the first variable, and a README section on
   how environment variables and secrets are handled.
 - Intern playground: a Next.js app listing everyone who shipped a first pull

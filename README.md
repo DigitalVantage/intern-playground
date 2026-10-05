@@ -189,10 +189,17 @@ reviewer can see what changed.
 
 ## Your first pull request
 
+On your first day, open your own checklist: **Issues → New issue →
+Onboarding**, then assign it to yourself. It lists everything below, in order.
+Each of you has a separate one, so you both do the same steps and see your own
+progress.
+
 1. Open an issue with the _Task_ template: "Add <your name> to the interns
    list".
 2. Create a branch `feat/add-<your-github-username>`.
 3. Add yourself to `src/data/interns.ts`. **Keep the list sorted by name.**
+   The site and the Git history are public and permanent, so your first name
+   or a nickname is fine.
    The tests check it, so try putting yourself in the wrong place and run
    `pnpm test --run` to see the failure.
 4. Check the home page with `pnpm dev`.
