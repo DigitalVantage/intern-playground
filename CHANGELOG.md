@@ -7,6 +7,8 @@ same pull request as the code.
 
 ### Docs
 
+- The intern docs exist in English and in simple Polish (`README.pl.md`,
+  `docs/pl/`), with a language switch at the top of each.
 - A step-by-step walkthrough of the first pull request: every command, what
   you should see, and what to do when it goes wrong.
 - Machine setup: how to install VS Code and connect it to WSL, settings, and

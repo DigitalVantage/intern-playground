@@ -1,160 +1,179 @@
-# Zasady: commity, pull requesty, dokumentacja
+# Conventions: commits, pull requests, documentation
 
-Te zasady obowiązują we wszystkich projektach Digital Vantage, także w Waszych.
-Piszemy je z myślą o jednej osobie: **o kimś, kto otworzy ten kod za pół
-roku**. Ta osoba nie zna kontekstu, nie pamięta rozmowy i nie ma kogo zapytać.
-Bardzo często to Ty sam.
+🇵🇱 [Wersja polska](pl/conventions.md)
 
-## 1. Commity
+The rules every Digital Vantage repository follows, interns' projects
+included. They exist for one reader: **the person who opens this code in six
+months**. That person has no context, no memory of the conversation, and
+probably no way to ask you. Often it is you.
 
-**Jeden commit = jedna zmiana.** Cała reszta wynika z tej zasady.
+## 1. Commits
 
-### Jak duży ma być commit
+**One commit = one logical change.** Everything below follows from that.
 
-- **Mały.** Zwykle kilkadziesiąt do kilkuset linijek. Lepiej pięć małych
-  commitów niż jeden ogromny.
-- **Jedna rzecz naraz.** Jeśli w opisie chcesz napisać „i” („dodaj X **i**
-  popraw Y”), to są dwa commity.
-- **Po każdym commicie projekt działa.** Testy i sprawdzanie przechodzą przy
-  każdym commicie, nie tylko przy ostatnim.
+### Size
 
-### Co razem, a co osobno
+- **Revertable on its own:** `git revert <sha>` must not take three unrelated
+  things with it. If you have to split the change in your head before
+  reverting, it should have been two commits.
+- **Readable in five minutes:** a reviewer reads the diff top to bottom
+  without scrolling back and holding two contexts at once.
+- **Usually 50–300 lines**, as a guide, not a rule. Renaming one thing in 30
+  files is a fine large commit. A new feature is usually several small ones
+  (types → logic → tests → wiring).
+- **Five small commits are better than one big one:** easier to review, to
+  bisect and to cherry-pick.
 
-| Razem, w jednym commicie          | Osobno, w różnych commitach              |
-| --------------------------------- | ---------------------------------------- |
-| kod + testy do niego              | porządkowanie kodu i nowa funkcja        |
-| zmiana + linijka w `CHANGELOG.md` | formatowanie całego pliku i zmiana w nim |
-| zmiana + poprawiona dokumentacja  | aktualizacja bibliotek i Twoja zmiana    |
+### What goes together, what goes apart
 
-### Jak napisać opis commita
+| Together, in one commit                       | Apart, in separate commits                                       |
+| --------------------------------------------- | ---------------------------------------------------------------- |
+| the code + its tests + updated types and docs | a refactor and a feature, **always**                             |
+| a database migration + the code that needs it | formatting a whole file, and a change in it                      |
+| a `feat` / `fix` + its `CHANGELOG.md` line    | a dependency upgrade (one package per commit for major versions) |
 
-Opis piszemy **po angielsku**, w takim formacie:
+The order is **refactor → feature → fix**. If a refactor reveals a bug, commit
+the refactor first with no change in behaviour, then the fix.
+
+### The message: Conventional Commits
 
 ```text
-<rodzaj>(<czego dotyczy>): <co robisz>
+<type>(<scope>): short description in the imperative, at most ~72 characters
+
+The body explains WHY, not what. What you changed is in the diff; the
+reason you changed it is nowhere else. Wrap at ~72 characters. If the
+decision was not obvious, name the alternative you rejected and why.
 ```
 
-Przykłady:
+| Type          | For                                                  |
+| ------------- | ---------------------------------------------------- |
+| `feat`        | new behaviour for the user                           |
+| `fix`         | a bug                                                |
+| `refactor`    | same behaviour, better code                          |
+| `perf`        | faster or lighter, same behaviour                    |
+| `test`        | tests only (adding missing ones, fixing a flaky one) |
+| `docs`        | documentation only                                   |
+| `chore`       | tooling, configuration, dependencies                 |
+| `style`       | formatting only                                      |
+| `build`, `ci` | the build, the CI pipeline                           |
+
+- **Imperative mood:** "add", "fix", "remove", not "added" or "adds". Read it
+  as "this commit will …".
+- **One scope:** `feat(export): …`. A subject with "and" in it is two commits.
+- **No full stop** at the end of the subject.
+- **In English.**
+
+Good and bad:
 
 ```text
-feat(home): show the number of interns
-fix(footer): use the current year
-docs: explain how to run the tests
-test(interns): check the GitHub usernames
+✅ fix(report): count 7,5 hours as 7.5, not as 7
+
+   Polish keyboards type a decimal comma, and parseFloat stops at it,
+   so every half hour reported that way was lost.
+
+❌ fixed stuff
+❌ WIP
+❌ feat: add export and fix hours and update readme
 ```
 
-**Rodzaje:**
+### Never in a commit
 
-| Rodzaj     | Kiedy                                         |
-| ---------- | --------------------------------------------- |
-| `feat`     | nowa rzecz, którą widzi użytkownik            |
-| `fix`      | naprawa błędu                                 |
-| `docs`     | tylko dokumentacja                            |
-| `test`     | tylko testy                                   |
-| `refactor` | porządkowanie kodu, działa tak samo jak przed |
-| `style`    | tylko formatowanie                            |
-| `chore`    | ustawienia, narzędzia, biblioteki             |
+- `WIP`, `fix`, `stuff`, `update` as the whole message. Fine while you work;
+  clean them up before merge (`git rebase -i` on your branch).
+- **Commented-out code** "for later". Git remembers it for you.
+- **Unused imports and variables** left over from an earlier attempt.
+- **`.env` files, keys, tokens, database dumps.**
+- **A whole-file reformat mixed with a real change.** The reviewer cannot see
+  the change.
 
-**Zasady opisu:**
+### Every commit leaves the project working
 
-- **Tryb rozkazujący:** `add`, nie `added` ani `adds`. Czytaj to tak: „ten
-  commit ma…: _add the footer_”.
-- **Bez kropki** na końcu.
-- **Krótko:** do około 70 znaków.
+Lint, types, tests (and ideally the build) pass on **every** commit, not only
+on the last one. `git bisect` depends on it. The pre-commit hook checks most of
+this for you.
 
-### Ściąga: angielskie słowa do opisów
+## 2. Pull requests
 
-| Chcesz powiedzieć… | Napisz                | Przykład                                |
-| ------------------ | --------------------- | --------------------------------------- |
-| dodaj              | `add`                 | `feat(home): add a footer`              |
-| pokaż              | `show`                | `feat(home): show the date`             |
-| usuń               | `remove`              | `chore: remove unused images`           |
-| napraw             | `fix`                 | `fix(list): fix the sorting of names`   |
-| zmień              | `change`              | `style(home): change the title colour`  |
-| przenieś           | `move`                | `refactor: move the helper to src/lib`  |
-| zmień nazwę        | `rename`              | `refactor: rename count to peopleCount` |
-| zaktualizuj        | `update`              | `docs: update the setup steps`          |
-| sprawdź / waliduj  | `check`, `validate`   | `test(interns): check the usernames`    |
-| wyjaśnij / opisz   | `explain`, `describe` | `docs: explain the .env file`           |
-
-Nie wiesz, jak coś napisać? Napisz najprościej, jak umiesz, i zapytaj w pull
-requeście. Prosty angielski jest w porządku.
-
-### Czego nigdy nie robimy w commicie
-
-- opisy typu `WIP`, `fix`, `zmiany`, `asdf`;
-- **zakomentowany kod** zostawiony „na później” (Git i tak go pamięta);
-- **nieużywane** importy i zmienne;
-- pliki **`.env`**, hasła, klucze;
-- formatowanie całego pliku zmieszane z prawdziwą zmianą (nikt nie znajdzie
-  tej zmiany w review).
-
-## 2. Pull requesty
-
-- **Jedno zadanie = jeden pull request.** Wpisz `Closes #12` z numerem zadania.
-- **Tytuł** jak opis commita, np. `feat(home): add a footer`.
-- **Opis** odpowiada na trzy pytania z szablonu: co się zmienia, po co, jak to
-  sprawdziłeś. Może być po polsku.
-- **Mały.** Jeśli PR jest za duży, żeby przeczytać go za jednym razem, podziel
-  go.
-- **Odpowiedz na każdy komentarz** z review.
+- **One issue, one pull request.** Link it with `Closes #12`.
+- **The title is a commit subject** (Conventional Commits), because it often
+  becomes one when squash-merged.
+- **The description answers three questions:** what changes for the user, why,
+  and how you checked it. The template asks exactly that.
+- **Small:** a pull request a reviewer cannot read in one sitting is too big.
+  Split it.
+- **Answer every review comment,** with a change or with a reason. Push fixes
+  as new commits during review, so the reviewer sees what changed. Do not
+  resolve threads you did not open.
 
 ## 3. CHANGELOG
 
-`CHANGELOG.md` to lista zmian w aplikacji dla ludzi, którzy z niej korzystają.
+- Every `feat`, `fix`, `perf` and `refactor` adds a line under
+  `## [Unreleased]` in **the same pull request**, not "later".
+- Group by `### Added`, `### Fixed`, `### Changed`, `### Docs`.
+- Write for a user of the app, not for a developer: "Hours typed with a comma
+  are counted correctly", not "Fix parseFloat in validate.ts".
+- Version numbers are added at release time, never by hand in a pull request.
 
-- Każdy `feat` i `fix` dopisuje linijkę pod `## [Unreleased]`, **w tym samym**
-  pull requeście.
-- Grupy: `### Added` (dodane), `### Fixed` (naprawione), `### Changed`
-  (zmienione), `### Docs` (dokumentacja).
-- Pisz po angielsku, prosto, **co widzi użytkownik**. Dobrze: `- A footer with
-the current year.` Źle: `- Edit layout.tsx.`
+## 4. Documentation
 
-## 4. Dokumentacja i komentarze
+### Where things are written
 
-### Gdzie co piszemy
+| What                                                  | Where                                                         |
+| ----------------------------------------------------- | ------------------------------------------------------------- |
+| How to run, test and use the project                  | `README.md`                                                   |
+| How it is built and **why** (architecture, decisions) | `docs/architecture.md` or a focused `docs/<topic>.md`         |
+| Why one piece of code looks the way it does           | a comment next to it                                          |
+| What a function does and how to call it               | a JSDoc comment on the exported function                      |
+| Why a change was made                                 | the commit message body and the pull request description      |
+| What changed for users                                | `CHANGELOG.md`                                                |
+| What is left to do                                    | GitHub issues, never a `TODO` comment without an issue number |
 
-| Co                                                   | Gdzie                    |
-| ---------------------------------------------------- | ------------------------ |
-| jak uruchomić projekt                                | `README.md`              |
-| jak coś jest zbudowane i **dlaczego**                | plik w `docs/`           |
-| dlaczego ten kawałek kodu wygląda tak, a nie inaczej | komentarz w kodzie, obok |
-| dlaczego zrobiłeś tę zmianę                          | opis pull requesta       |
-| co się zmieniło dla użytkownika                      | `CHANGELOG.md`           |
-| co jeszcze jest do zrobienia                         | issue na GitHubie        |
+### Rules
 
-### Zasady
+- **Docs change in the same pull request as the code.** A README that
+  describes last month's commands is worse than none: people trust it.
+- **Both languages.** Intern-facing docs exist in English (`docs/*.md`) and Polish
+  (`docs/pl/*.md`). Change one, change the other in the same pull request.
+- **Edit before you create.** Add a section to an existing document before
+  adding a new file. Ten short files nobody can find help nobody.
+- **The first sentence is the answer.** "Reports are saved in SQLite, one per
+  person per day", not "This document describes the storage layer".
+- **Concrete over vague:** commands you can copy, real values with units,
+  file paths. "Run `pnpm db:migrate`", not "run the migrations".
+- **Decisions get their reason.** "We use X" is half a sentence; "We use X
+  because Y, and not Z because W" is the half the next person needs.
+- **English, plain words, short sentences.** No marketing tone.
 
-- **Dokumentację poprawiasz w tym samym pull requeście co kod.** Instrukcja,
-  która opisuje stare polecenia, jest gorsza niż żadna, bo ludzie jej ufają.
-- **Najpierw popraw istniejący plik**, zamiast tworzyć nowy.
-- **Konkretnie:** polecenie do skopiowania, ścieżka do pliku. „Uruchom
-  `pnpm test --run`”, a nie „uruchom testy”.
+### Comments in code
 
-### Komentarze w kodzie
-
-Komentarz mówi **dlaczego**, bo **co** widać w samym kodzie.
+Comments say **why**, because the code already says what.
 
 ```ts
-// ❌ zwiększ licznik o 1
+// ❌ increment the counter
 count++
 
-// ✅ Lista na stronie zaczyna się od 1, a tablica w JavaScript od 0.
-const position = index + 1
+// ✅ Discord retries an interaction it got no answer to within 3 s, so the
+//    same report can arrive twice — the unique index makes the second a no-op.
+await repository.upsert(report)
 ```
 
-- Pisz komentarz tam, gdzie ktoś by się zatrzymał i zapytał „czemu tak?”.
-- Komentarze w kodzie najlepiej po angielsku. Jeśli nie umiesz czegoś opisać po
-  angielsku, napisz po polsku i zapytaj w pull requeście.
-- **Nazwy** w kodzie zawsze po angielsku i takie, które mówią, **czym coś
-  jest**: `peopleCount`, a nie `x` ani `liczba2`.
+- Write a comment where a reader would otherwise stop and ask "why is it like
+  this?": a workaround, a limit of an external API, a non-obvious rule.
+- No comment that repeats the code, no commented-out code, no `// TODO`
+  without an issue number (`// TODO(#42): …`).
+- Exported functions get a short JSDoc: what it returns, and anything
+  surprising about its arguments.
+- Name things for what they **are**, not where they are used:
+  `formatHours`, not `exportPageHelper`.
 
-## 5. Pisanie kodu w pięciu zdaniach
+## 5. Code design, in five lines
 
-- **Prosto.** Najprostsze rozwiązanie, które działa, jest najlepsze.
-- **Bez kopiowania**, ale nie od razu: dwa podobne fragmenty to przypadek, trzeci
-  to znak, że trzeba zrobić z tego funkcję.
-- **Tylko to, co potrzebne teraz.** Nie dodawaj kodu „na zapas”.
-- **Jedna funkcja robi jedną rzecz.**
-- **Zostaw kod trochę czystszy, niż go zastałeś**, ale nie zmieniaj przy okazji
-  rzeczy niezwiązanych z zadaniem.
+- **Keep it simple:** the simplest version that works wins. Readability beats
+  cleverness.
+- **Don't repeat yourself, but not too early:** two similar pieces are a
+  coincidence, the third is a reason to extract.
+- **You aren't gonna need it:** no options, props or code "for later".
+- **One job per function and per component.** Split data fetching, validation
+  and rendering.
+- **Leave it a little cleaner than you found it,** without touching unrelated
+  code in the same commit.
