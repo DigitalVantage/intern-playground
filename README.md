@@ -26,7 +26,9 @@ includes branches that are deleted later and commits that are rewritten.
 ## What you need
 
 The Digital Vantage standard. Same versions for everyone, or you get bugs that
-nobody else can reproduce.
+nobody else can reproduce. Setting up from scratch? Follow
+**[docs/machine-setup.md](docs/machine-setup.md)** step by step. Below is the
+short version.
 
 | Tool    | Version          | Notes                                                                                 |
 | ------- | ---------------- | ------------------------------------------------------------------------------------- |
