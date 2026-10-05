@@ -157,6 +157,22 @@ W skrócie:
    request.
 5. Zrób review pull requesta kolegi i odpowiedz na komentarze do swojego.
 
+## Godziny pracy i dziennik praktyk
+
+- **Codzienne spotkanie o 12:00** na Google Meet (czasem trochę później).
+  Wtedy są pytania i review kodu.
+- **Pracujemy w dzień:** gdzieś między 9:00 a 19:00, od poniedziałku do
+  piątku. Możesz zacząć trochę wcześniej albo skończyć trochę później, ale
+  **nigdy w nocy**. W nocy nikt Ci nie pomoże, a zadania i tak czekają na
+  review.
+- **Lepiej jedno zadanie dobrze niż pięć na szybko.** Chodzi o to, żebyś
+  rozumiał, co robisz.
+- **Codziennie na koniec pracy dodaj krótki wpis w swoim dzienniku praktyk**
+  (issue w repo `discord-daily-report`, przypięte na górze listy Issues): co
+  zrobiłeś, ile godzin, co było trudne, plan na jutro. Z tych wpisów powstaje
+  dziennik praktyk dla szkoły.
+- **Masz w niektóre dni zajęcia w szkole?** Daj znać wcześniej na Discordzie.
+
 ## Kontakt i pytania
 
 | Gdzie                                                                                               | Co tam piszemy                                   |

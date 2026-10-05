@@ -7,6 +7,7 @@ same pull request as the code.
 
 ### Docs
 
+- Working hours and the daily log, in both READMEs.
 - Recommended free React and Next.js video courses, in English and Polish, with
   how to turn on translated subtitles.
 - The intern docs exist in English and in simple Polish (`README.pl.md`,
