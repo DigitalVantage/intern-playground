@@ -1,11 +1,14 @@
 import { interns } from '@/data/interns'
 
+// Set in .env.local (see .env.example); the fallback keeps the app working without one.
+const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Intern playground'
+
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-4 py-16">
       <header className="flex flex-col gap-2">
         <p className="text-sm font-medium uppercase tracking-wide text-zinc-500">Digital Vantage</p>
-        <h1 className="text-4xl font-semibold">Intern playground</h1>
+        <h1 className="text-4xl font-semibold">{appName}</h1>
         <p className="text-zinc-600 dark:text-zinc-400">
           Everyone below shipped their first pull request here.
         </p>

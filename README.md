@@ -59,10 +59,42 @@ cd intern-playground
 nvm use            # Node from .nvmrc
 corepack enable    # pnpm from package.json
 pnpm install       # also installs the Git hooks
+cp .env.example .env.local
 pnpm dev           # http://localhost:3000
 ```
 
-The app needs no database and no `.env`.
+The app needs no database. It also starts without `.env.local`, but create it
+anyway, because every real project needs one.
+
+## Environment variables (`.env`)
+
+Settings that differ between machines, and every secret, live in environment
+variables, never in the code. Next.js loads them from files in the project root:
+
+| File           | Committed? | What it holds                                                      |
+| -------------- | ---------- | ------------------------------------------------------------------ |
+| `.env.example` | yes        | the list of variables, with comments and safe defaults. No secrets |
+| `.env.local`   | **never**  | your values on your machine. `.gitignore` keeps it out of Git      |
+
+Rules:
+
+- **Add a variable in two places:** your `.env.local` and `.env.example` (name,
+  comment, safe default or empty value), in the same pull request. Otherwise
+  the next person does not know it exists.
+- **`NEXT_PUBLIC_` means public.** Next.js builds these values into the
+  JavaScript sent to the browser, so anyone can read them. Secrets (API keys,
+  passwords, tokens) get a name **without** the prefix and are read only on the
+  server.
+- **Restart `pnpm dev` after changing a `.env` file.** Values are read once, at
+  startup.
+- **Secrets come from your mentor,** through a password manager or another
+  private channel. Never paste a secret into an issue, a pull request, a commit
+  or a chat.
+- CI does not read `.env` files. Values it needs are stored as GitHub Actions
+  secrets by a maintainer.
+- **Leaked a secret** (pushed, pasted, screenshotted)? Tell your mentor
+  immediately. The key has to be revoked and replaced, because deleting the
+  commit does not make it secret again.
 
 ## Commands
 
