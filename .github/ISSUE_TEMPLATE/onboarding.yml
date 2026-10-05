@@ -31,7 +31,7 @@ body:
   - type: checkboxes
     id: first-pr
     attributes:
-      label: 3. Your first pull request (README → "Your first pull request")
+      label: 3. Your first pull request (docs/first-pull-request.md, step by step)
       options:
         - label: Repository cloned, `.env.local` created, `pnpm dev` shows the interns list
         - label: Branch `feat/add-<your-github-username>`; yourself added to `src/data/interns.ts`, sorted

@@ -7,6 +7,8 @@ same pull request as the code.
 
 ### Docs
 
+- A step-by-step walkthrough of the first pull request: every command, what
+  you should see, and what to do when it goes wrong.
 - Machine setup: how to install VS Code and connect it to WSL, settings, and
   everyday shortcuts.
 - A working guide to Git and GitHub: taking issues, branches, rebasing,
