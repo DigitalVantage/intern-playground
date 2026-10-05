@@ -212,6 +212,22 @@ else. In short:
 5. Review your teammate's pull request, answer your own review, and resolve
    the merge conflict if their change lands first.
 
+## Working hours and the daily log
+
+- **Daily meeting at 12:00** on Google Meet (sometimes moved a little later).
+  Questions and code review happen then.
+- **Work during the day:** somewhere between 9:00 and 19:00, Monday to
+  Friday. Start a bit earlier or finish a bit later if you need to, but
+  **never at night**. Nobody can help you at night, and the tasks wait for each
+  other's reviews anyway.
+- **One task done well beats five done fast.** The point is to understand what
+  you do.
+- **Every day, at the end of your work, write a short entry in your daily log**
+  (an issue in `discord-daily-report`, pinned at the top of its Issues list):
+  what you did, how many hours, what was hard, the plan for tomorrow. The
+  internship diary for your school is made from these entries.
+- **School classes on some days?** Say so on Discord in advance.
+
 ## Communication
 
 | Where                                                                                            | What goes there                                                     |
