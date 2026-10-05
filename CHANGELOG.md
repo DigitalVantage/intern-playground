@@ -5,6 +5,11 @@ same pull request as the code.
 
 ## [Unreleased]
 
+### Docs
+
+- Conventions for commits, pull requests, the CHANGELOG, documentation and
+  code comments.
+
 ### Added
 
 - `.env.example` with the page title as the first variable, and a README section on
