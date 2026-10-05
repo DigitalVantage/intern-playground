@@ -118,6 +118,8 @@ Szczegóły:
 
 - **jak to wszystko robić w Gicie i na GitHubie:**
   [docs/pl/github-guide.md](docs/pl/github-guide.md);
+- **kursy wideo z Reacta i Next.js (z polskimi napisami):**
+  [docs/pl/learning.md](docs/pl/learning.md);
 - **zasady pisania commitów, PR-ów i dokumentacji:**
   [docs/pl/conventions.md](docs/pl/conventions.md).
 

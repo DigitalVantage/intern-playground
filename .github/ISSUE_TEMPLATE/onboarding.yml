@@ -28,6 +28,7 @@ body:
         - label: README.md, top to bottom
         - label: docs/conventions.md (commits, pull requests, CHANGELOG, documentation)
         - label: docs/github-guide.md (taking issues, branches, review)
+        - label: 'docs/learning.md (in Polish: docs/pl/learning.md) — picked the first course and watched its first part'
   - type: checkboxes
     id: first-pr
     attributes:

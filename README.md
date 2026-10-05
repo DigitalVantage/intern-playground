@@ -133,6 +133,8 @@ commits, pull requests, the CHANGELOG, documentation and code comments are in
 request.
 How to do each step in Git and on GitHub (taking an issue, rebasing,
 reviewing, where things are) is in **[docs/github-guide.md](docs/github-guide.md)**.
+New to React or Next.js? Free video courses, in the order we recommend them:
+**[docs/learning.md](docs/learning.md)**.
 
 1. **Start from an issue.** Pick one, or open one with the _Task_ template.
    Comment on it so nobody else picks it too.
