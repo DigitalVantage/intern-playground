@@ -194,19 +194,19 @@ Onboarding**, then assign it to yourself. It lists everything below, in order.
 Each of you has a separate one, so you both do the same steps and see your own
 progress.
 
-1. Open an issue with the _Task_ template: "Add <your name> to the interns
-   list".
+**Follow [docs/first-pull-request.md](docs/first-pull-request.md)**: every
+command, what you should see after it, and what to do when you see something
+else. In short:
+
+1. Open an issue (_Task_) and assign it to yourself.
 2. Create a branch `feat/add-<your-github-username>`.
-3. Add yourself to `src/data/interns.ts`. **Keep the list sorted by name.**
-   The site and the Git history are public and permanent, so your first name
-   or a nickname is fine.
-   The tests check it, so try putting yourself in the wrong place and run
-   `pnpm test --run` to see the failure.
-4. Check the home page with `pnpm dev`.
-5. Add a line to `CHANGELOG.md` under `[Unreleased]`, for example
-   `- Interns list: add Anna Kowalska.`
-6. Commit (`feat(interns): add Anna Kowalska`), push and open the pull request.
-7. Respond to the review until it is merged. Your name is then on the home page.
+3. Add yourself to `src/data/interns.ts`, first in the wrong place to see the
+   test fail, then sorted by name. The site is public, so your first name or a
+   nickname is fine.
+4. A line in `CHANGELOG.md`, a commit `feat(interns): add <name>`, a push and
+   a pull request.
+5. Review your teammate's pull request, answer your own review, and resolve
+   the merge conflict if their change lands first.
 
 ## Communication
 
