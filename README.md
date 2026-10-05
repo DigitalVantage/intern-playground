@@ -125,7 +125,10 @@ CHANGELOG.md      what changed, written by whoever changed it
 
 ## How we work
 
-Every change, however small, goes through the same steps.
+Every change, however small, goes through the same steps. The full rules for
+commits, pull requests, the CHANGELOG, documentation and code comments are in
+**[docs/conventions.md](docs/conventions.md)**. Read it before your first pull
+request.
 
 1. **Start from an issue.** Pick one, or open one with the _Task_ template.
    Comment on it so nobody else picks it too.
