@@ -1,92 +1,116 @@
-# Your first pull request, step by step
+# Twój pierwszy pull request, krok po kroku
 
-In this exercise you add your name to the list on the home page. The change
-itself is three lines. The point is everything around it: an issue, a branch,
-a test, a commit, a pull request, a review. That is how every change at
-Digital Vantage is made, from a typo to a new feature.
+W tym ćwiczeniu dopisujesz się do listy na stronie głównej. Sama zmiana w kodzie
+to kilka linijek. Ważne jest wszystko dookoła: zadanie, gałąź, test, commit,
+pull request i review. Dokładnie tak powstaje każda zmiana w Digital Vantage, od
+poprawki literówki do nowej funkcji.
 
-Plan for about **2–3 hours** the first time. Each step says what you should
-see. If you see something else, stop and look at the _If it goes wrong_ box
-under that step. If it is not there, ask on Discord.
+**Ile to trwa:** za pierwszym razem około **2–3 godzin**.
 
-**Before you start:** sections 1–6 of [machine-setup.md](machine-setup.md) are
-done (`node -v` shows `v24`, `ssh -T git@github.com` greets you by name).
+**Jak czytać:** przy każdym kroku znaczek ✅ mówi, co powinieneś zobaczyć. Jeśli
+widzisz coś innego, zatrzymaj się i zajrzyj do ramki **„Jeśli coś nie
+działa”**. Nie ma tam Twojego problemu? Zapytaj na Discordzie.
+
+**Zanim zaczniesz:** komputer jest przygotowany według
+[machine-setup.md](machine-setup.md) (wszystkie punkty z kroku 8 odhaczone).
+
+### Kilka nowych słów
+
+| Słowo                 | Co to znaczy                                                       |
+| --------------------- | ------------------------------------------------------------------ |
+| **issue**             | zadanie na GitHubie: opis, co trzeba zrobić                        |
+| **gałąź** (branch)    | Twoja osobna kopia kodu. Zmieniasz ją, a `main` zostaje nietknięty |
+| **commit**            | zapisany w Gicie krok: „w tym miejscu zmieniłem to i to”           |
+| **push**              | wysłanie Twoich commitów na GitHuba                                |
+| **pull request** (PR) | prośba: „sprawdźcie moją zmianę i dołączcie ją do `main`”          |
+| **review**            | inni czytają Twój kod i zostawiają komentarze                      |
+| **merge**             | dołączenie zmiany do `main`                                        |
 
 ---
 
-## Step 1. Open an issue for your task
+## Krok 1. Załóż issue (zadanie)
 
-Every piece of work starts with an issue. It is the task description, and the
-place where people talk about the task.
+Każda praca zaczyna się od issue. To opis zadania i miejsce, gdzie się o nim
+rozmawia.
 
-1. Go to the repository on GitHub → the **Issues** tab → green **New issue**
-   button → choose **Task**.
-2. Title: `Add <your first name> to the interns list`.
-3. _Goal:_ `My name is on the home page.` _Done when:_ `The page lists me and
-the tests pass.`
-4. Click **Create**. In the right sidebar: **Assignees** → _assign yourself_.
+1. Wejdź na stronę repozytorium na GitHubie → zakładka **Issues** → zielony
+   przycisk **New issue** → wybierz **Task**.
+2. Tytuł: `Add <Twoje imię> to the interns list`, np. `Add Zofia to the interns
+list`.
+3. Pole **Goal**: `My name is on the home page.`
+4. Pole **Done when**: `The page shows my name and the tests pass.`
+5. Kliknij **Create**.
+6. Po prawej stronie: **Assignees** → **assign yourself**. Teraz wszyscy wiedzą,
+   że to Twoje zadanie.
 
-✅ You see your issue with a number, for example **#31**. Remember it.
+✅ Widzisz swoje issue z numerem, np. **#31**. **Zapamiętaj ten numer**, będzie
+potrzebny w kroku 10.
 
-## Step 2. Get the code
+## Krok 2. Przygotuj kod
 
-In the **Ubuntu terminal** (not PowerShell):
+Otwórz **terminal Ubuntu** (nie PowerShell). Jeśli w kroku 7 przygotowania
+komputera już pobrałeś projekt, wpisz tylko:
 
 ```bash
-cd ~/projects
-git clone git@github.com:DigitalVantage/intern-playground.git
-cd intern-playground
-nvm use
-corepack enable
+cd ~/projects/intern-playground
+git switch main
+git pull
 pnpm install
+```
+
+✅ `pnpm install` kończy się napisem `Done in …`.
+
+Załóż plik z ustawieniami (wystarczy raz):
+
+```bash
 cp .env.example .env.local
 ```
 
-✅ `pnpm install` ends with `Done in …`. You did this already in the onboarding
-checklist? Then only update: `git switch main && git pull`.
-
-> **If it goes wrong**
+> **Jeśli coś nie działa**
 >
-> - `Permission denied (publickey)`: your SSH key is not on GitHub
->   ([machine-setup.md §6](machine-setup.md#6-connect-git-to-github)).
-> - `nvm: command not found`: close and reopen the terminal, or install nvm
->   again.
+> - `No such file or directory`: nie pobrałeś jeszcze projektu. Zrób krok 7 z
+>   [machine-setup.md](machine-setup.md).
+> - `Permission denied (publickey)`: GitHub nie zna Twojego klucza SSH. Zrób
+>   krok 6 z [machine-setup.md](machine-setup.md).
 
-## Step 3. Look at it running
+## Krok 3. Uruchom stronę
 
 ```bash
 pnpm dev
 ```
 
-✅ The terminal shows `Local: http://localhost:3000`. Open it in your browser:
-you see **Intern playground** and a list with one person on it.
+✅ W terminalu pojawia się `Local: http://localhost:3000`. Otwórz ten adres w
+przeglądarce. Widzisz napis **Intern playground** i listę z jedną osobą.
 
-Leave this terminal running. Open a **second** terminal tab for the next steps
-(`Ctrl+Shift+T` in Windows Terminal, or `` Ctrl+` `` in VS Code).
+**Nie zamykaj tego terminala**, bo strona przestanie działać. Do kolejnych
+kroków otwórz **drugi** terminal: w VS Code skrót `` Ctrl+` ``, a potem przycisk
+**+** w panelu terminala.
 
-## Step 4. Create your branch
+## Krok 4. Utwórz swoją gałąź
 
-You never work on `main` directly. You create your own branch, a copy of the
-code where your change lives until it is reviewed.
+Nigdy nie pracujemy bezpośrednio na `main`. Tworzysz swoją gałąź, czyli osobną
+kopię kodu. Twoja zmiana będzie na niej, dopóki ktoś jej nie sprawdzi.
 
-```bash
-git switch -c feat/add-<your-github-username>
-# for example: git switch -c feat/add-anna-kowalska
-```
-
-✅ `Switched to a new branch 'feat/add-anna-kowalska'`. Check any time with
-`git status`: the first line says which branch you are on.
-
-## Step 5. Open the project in VS Code
+W **drugim** terminalu wpisz (podmień `zofia-dev` na swoją nazwę z GitHuba):
 
 ```bash
-code .
+git switch -c feat/add-zofia-dev
 ```
 
-✅ Bottom-left corner: `WSL: Ubuntu-24.04`. On the left you see the files.
+✅ `Switched to a new branch 'feat/add-zofia-dev'`.
 
-Open `src/data/interns.ts` (`Ctrl+P`, type `interns`, press Enter). It looks
-like this:
+W każdej chwili możesz sprawdzić, na której gałęzi jesteś:
+
+```bash
+git status
+```
+
+Pierwsza linijka mówi: `On branch feat/add-zofia-dev`.
+
+## Krok 5. Znajdź plik z listą
+
+W VS Code naciśnij `Ctrl+P`, wpisz `interns` i wybierz plik
+`src/data/interns.ts`. Wygląda tak:
 
 ```ts
 export const interns: Intern[] = [
@@ -98,183 +122,218 @@ export const interns: Intern[] = [
 ]
 ```
 
-Each `{ … }` block is one person. The page builds the list from this array.
-You do not touch the page at all.
+Co tu widzisz:
 
-## Step 6. Break the test on purpose
+- `interns` to **tablica** (lista), zapisana w nawiasach `[ … ]`;
+- każdy blok `{ … }` to **jedna osoba** (obiekt) z trzema polami: `name`,
+  `github` i `goal`;
+- strona główna sama buduje listę z tej tablicy. **Strony w ogóle nie
+  zmieniasz.**
 
-Before you add yourself correctly, see what a failing test looks like, so you
-recognise it later.
+## Krok 6. Celowo zepsuj test
 
-1. Add yourself **at the very top** of the list, even if your name does not
-   come first alphabetically. For example, if your name starts with "Z", put it
-   before "Konrad":
+Najpierw zobaczysz, jak wygląda test, który nie przechodzi. Dzięki temu
+rozpoznasz go później.
+
+1. Dopisz siebie **na samej górze** listy, przed Konradem. Uważaj na przecinki:
+   każdy blok `{ … }` kończy się przecinkiem.
 
    ```ts
    export const interns: Intern[] = [
      {
        name: 'Zofia',
        github: 'zofia-dev',
-       goal: 'Learn how a real team reviews code.',
+       goal: 'I want to learn how a real team works.',
      },
      {
        name: 'Konrad Barejko',
-       // … the rest stays as it was
+       // … reszta bez zmian
    ```
 
-   - `name`: what the world will see. **The site is public**, so your first
-     name or a nickname is enough.
-   - `github`: your GitHub username, **without** the `@`.
-   - `goal`: one sentence, what you want to learn here.
+   - `name`: to zobaczy każdy w internecie. **Wystarczy imię albo pseudonim.**
+   - `github`: Twoja nazwa z GitHuba, **bez** znaku `@`.
+   - `goal`: jedno proste zdanie po angielsku: czego chcesz się nauczyć. Na
+     przykład: `I want to learn how a real team works.` albo `I want to build
+my first real website.`
 
-2. Run the tests:
+2. Zapisz plik (`Ctrl+S`) i uruchom testy:
 
    ```bash
    pnpm test --run
    ```
 
-✅ You see a red ❌ and `the interns list > is sorted by name`. The test checks
-that the list is in alphabetical order, and yours is not.
+✅ Widzisz czerwony znak ❌ i tekst `the interns list > is sorted by name`. Test
+sprawdza, czy lista jest **w kolejności alfabetycznej**, a Twoja nie jest.
 
-(If your name does come before "Konrad", put yourself **after** him instead,
-to make the test fail.)
+Jeśli Twoje imię jest w alfabecie **przed** literą K (np. Artem), test przejdzie
+na zielono. Wtedy przenieś się **na koniec** listy, za Konrada, żeby zobaczyć
+błąd.
 
-## Step 7. Fix it
+## Krok 7. Napraw to
 
-Move your block to its correct alphabetical place, then run the tests again:
+Przenieś swój blok we właściwe miejsce w alfabecie (np. Artem przed Konradem,
+Zofia za Konradem). Zapisz plik i uruchom testy jeszcze raz:
 
 ```bash
 pnpm test --run
 ```
 
-✅ All green: `Tests  5 passed (5)`. Look at the browser too: the page has
-already reloaded and shows your name.
+✅ Wszystko zielone: `Tests  5 passed (5)`. Spójrz też do przeglądarki: strona
+sama się odświeżyła i widać na niej Twoje imię.
 
-## Step 8. Write it in the CHANGELOG
+## Krok 8. Dopisz zmianę do CHANGELOG
 
-Open `CHANGELOG.md`. Under `## [Unreleased]` → `### Added`, add one line at
-the top of the list:
+`CHANGELOG.md` to lista zmian w aplikacji. Otwórz go (`Ctrl+P` → `CHANGELOG`).
+Pod `## [Unreleased]` → `### Added` dopisz **na górze listy** jedną linijkę:
 
 ```md
 - Interns list: add Zofia.
 ```
 
-The CHANGELOG is for people using the app, so describe what changed for them,
-not which file you edited.
+Piszemy, co zmieniło się **dla osoby, która korzysta ze strony**, a nie który
+plik edytowałeś.
 
-## Step 9. Commit
+## Krok 9. Zrób commit
 
-First look at what you changed, then stage it piece by piece:
+Commit to zapisanie zmiany w Gicie. Najpierw zobacz, co zmieniłeś:
 
 ```bash
-git status          # two files changed: src/data/interns.ts and CHANGELOG.md
-git add -p          # shows every change; press y to take it, n to skip it
-git commit
+git status
 ```
 
-`git commit` opens an editor. Write:
+✅ Dwa zmienione pliki: `src/data/interns.ts` i `CHANGELOG.md`.
 
-```text
-feat(interns): add Zofia
+Teraz wybierz zmiany do commita. Git pokaże Ci po kolei każdy fragment:
 
-First pull request of my internship.
+```bash
+git add -p
 ```
 
-Save and close the editor. In the terminal editor `nano`: `Ctrl+O`, Enter,
-`Ctrl+X`.
+Przy każdym fragmencie przeczytaj go i naciśnij `y` (tak, weź) albo `n` (nie).
+Tutaj weź wszystko: `y` przy każdym.
 
-✅ The pre-commit hook runs (ESLint, Prettier, TypeScript) and ends with your
-commit: `[feat/add-zofia-dev 1a2b3c4] feat(interns): add Zofia`.
+Zapisz commit z opisem po angielsku:
 
-> **If it goes wrong**
+```bash
+git commit -m "feat(interns): add Zofia"
+```
+
+Co znaczy ten opis:
+
+- `feat`: dodajesz coś nowego (feature);
+- `(interns)`: czego dotyczy zmiana;
+- `add Zofia`: co robisz, w trybie rozkazującym („dodaj”, nie „dodałem”).
+
+✅ Git sam sprawdza kod (to trwa kilkanaście sekund), a na końcu pokazuje
+`[feat/add-zofia-dev 1a2b3c4] feat(interns): add Zofia`.
+
+> **Jeśli coś nie działa**
 >
-> - The hook prints errors and the commit is not made: read the first error,
->   fix it, `git add -p` again, `git commit` again.
-> - `Please tell me who you are`: your Git name or email is not set
->   ([machine-setup.md §4](machine-setup.md)).
-> - `push declined due to email privacy restrictions` (in the next step):
->   your Git email is your real one. Set the noreply one and run
->   `git commit --amend --reset-author --no-edit`.
+> - Pojawiają się błędy i commit się nie zapisał: przeczytaj **pierwszy** błąd,
+>   popraw plik, potem znowu `git add -p` i `git commit -m "…"`.
+> - `Please tell me who you are`: Git nie zna Twojego imienia ani adresu. Zrób
+>   „Ustaw Gita” z kroku 4 w [machine-setup.md](machine-setup.md).
 
-## Step 10. Push and open the pull request
+## Krok 10. Wyślij zmianę i otwórz pull request
+
+Wyślij swoją gałąź na GitHuba:
 
 ```bash
 git push -u origin HEAD
 ```
 
-✅ The output contains a link: `Create a pull request for 'feat/add-…' on
-GitHub by visiting: https://github.com/…`. Open it, or go to the repository
-and click the yellow **Compare & pull request** banner.
+✅ W wyniku jest link `Create a pull request for 'feat/add-…' on GitHub by
+visiting: https://github.com/…`. Otwórz go (`Ctrl` + kliknięcie). Możesz też
+wejść na stronę repozytorium i kliknąć żółty pasek **Compare & pull request**.
 
-On the pull request page:
+> **Jeśli coś nie działa**
+>
+> - `push declined due to email privacy restrictions`: w Gicie masz prawdziwy
+>   adres e-mail. Ustaw adres zastępczy (krok 4 w
+>   [machine-setup.md](machine-setup.md)), a potem wpisz
+>   `git commit --amend --reset-author --no-edit` i ponów `git push`.
 
-1. **Title:** the same as your commit, `feat(interns): add Zofia`.
-2. **Description:** the template is already there. Fill in _What_ and _Why_ in
-   a sentence each, write `Closes #31` (your issue number from step 1) and tick
-   the checklist boxes you have done.
-3. Right sidebar: **Reviewers** → your teammate. **Assignees** → yourself.
-4. **Create pull request**.
+Na stronie pull requesta:
 
-✅ A few seconds later the **Checks** start. After about a minute you see a
-green ✔ next to _Lint, typecheck, test, build_.
+1. **Tytuł:** taki sam jak commit: `feat(interns): add Zofia`.
+2. **Opis:** szablon już tam jest. W każdym punkcie napisz jedno zdanie (może
+   być po polsku). W linijce `Closes #` wpisz numer swojego issue z kroku 1, np.
+   `Closes #31`. Odhacz punkty, które zrobiłeś.
+3. Po prawej: **Reviewers** → wybierz kolegę z praktyk. **Assignees** → siebie.
+4. Kliknij **Create pull request**.
 
-## Step 11. Review, and answer it
+✅ Po chwili na dole pojawiają się **Checks**. Po około minucie przy _Lint,
+typecheck, test, build_ jest zielony ✔. Czerwony ✖? Kliknij **Details** i
+przeczytaj błąd.
 
-Your teammate and your mentor will leave comments. That is normal. Every
-pull request at Digital Vantage gets some.
+## Krok 11. Review: odpowiedz na komentarze
 
-- Answer **every** comment: fix it, or explain why not.
-- Fix on the same branch: change the file, `git add -p`, `git commit`
-  (`fix: …` or a short description), `git push`. The pull request updates
-  itself.
-- When everything is answered, click **Re-request review** (the circular arrow
-  next to the reviewer's name).
+Kolega i opiekun zostawią komentarze do Twojego kodu. **To normalne.** Każdy
+pull request w Digital Vantage je dostaje, także te od doświadczonych
+programistów.
 
-At the same time, **review your teammate's pull request**:
-[github-guide.md §5](github-guide.md#5-reviewing-your-teammates-pull-request).
+- Odpowiedz na **każdy** komentarz: popraw kod albo napisz, dlaczego nie.
+- Poprawki robisz na tej samej gałęzi: zmień plik, potem `git add -p`,
+  `git commit -m "fix: …"` (krótko, co poprawiasz) i `git push`. Pull request
+  sam się zaktualizuje.
+- Gdy odpowiesz na wszystko, kliknij **Re-request review** (okrągła strzałka obok
+  nazwy osoby, która robiła review).
 
-## Step 12. If your teammate's pull request is merged first
+W tym samym czasie **zrób review pull requesta kolegi**. Jak to zrobić, opisuje
+[github-guide.md](github-guide.md) w punkcie o review.
 
-Both of you edited the same list, so Git cannot combine the two changes on its
-own. That is a **merge conflict**, and resolving one is part of the exercise.
+## Krok 12. Jeśli pull request kolegi trafił do `main` pierwszy
+
+Obaj zmienialiście tę samą listę, więc Git nie wie, jak połączyć Wasze zmiany.
+To się nazywa **konflikt** (merge conflict). Rozwiązanie go jest częścią
+ćwiczenia.
 
 ```bash
 git fetch
 git rebase origin/main
 ```
 
-✅ Git stops and says `CONFLICT (content): Merge conflict in
-src/data/interns.ts`. Open the file. You see markers like:
+✅ Git zatrzymuje się i pisze `CONFLICT (content): Merge conflict in
+src/data/interns.ts`. Otwórz ten plik. Zobaczysz takie znaczniki:
 
 ```text
 <<<<<<< HEAD
-  { name: 'Anna', … },        ← what is already on main (your teammate)
+  { name: 'Artem', … },       ← to, co już jest w main (zmiana kolegi)
 =======
-  { name: 'Zofia', … },       ← your change
+  { name: 'Zofia', … },       ← Twoja zmiana
 >>>>>>> feat(interns): add Zofia
 ```
 
-Keep **both** people, in alphabetical order, and delete the three marker lines
-(`<<<<<<<`, `=======`, `>>>>>>>`). VS Code also shows _Accept Both Changes_
-above the conflict. Then:
+Zostaw **obie** osoby w kolejności alfabetycznej i usuń trzy linie ze
+znacznikami (`<<<<<<<`, `=======`, `>>>>>>>`). VS Code pokazuje nad konfliktem
+przycisk **Accept Both Changes**, który zostawia oba fragmenty. Potem sprawdź
+kolejność.
+
+Następnie:
 
 ```bash
-pnpm test --run                  # still sorted?
+pnpm test --run
 git add src/data/interns.ts
-git rebase --continue            # the editor opens with your message: save and close
-git push --force-with-lease      # only ever on your own branch
+git rebase --continue
+git push --force-with-lease
 ```
 
-✅ The pull request shows your commit on top of the new `main`, and the checks
-run again.
+- `pnpm test --run`: sprawdza, czy lista wciąż jest w dobrej kolejności;
+- `git rebase --continue`: może otworzyć edytor z opisem commita. Zapisz i
+  zamknij bez zmian. W edytorze `nano`: `Ctrl+X`;
+- `--force-with-lease`: nadpisuje Twoją gałąź na GitHubie. Wolno tak robić
+  **tylko na swojej gałęzi**, nigdy na `main`.
 
-## Step 13. Merged
+✅ Pull request pokazuje Twój commit na nowym `main`, a sprawdzanie (Checks)
+startuje od nowa.
 
-When the pull request has an approval and green checks, your mentor merges it.
-The issue closes by itself (that is what `Closes #31` did), and your name is on
-the home page.
+## Krok 13. Gotowe
 
-Clean up locally:
+Gdy pull request ma akceptację i zielone sprawdzanie, opiekun go dołącza
+(merge). Issue zamknie się samo (to dzięki `Closes #31`), a Twoje imię jest na
+stronie głównej.
+
+Posprzątaj u siebie:
 
 ```bash
 git switch main
@@ -282,5 +341,5 @@ git pull
 git branch -d feat/add-zofia-dev
 ```
 
-Tick section 3 in your onboarding issue. **Done: you have just done what you
-will do a hundred more times.**
+Odhacz sekcję 3 w swoim issue „Onboarding”. **Brawo: właśnie zrobiłeś coś, co
+będziesz robić jeszcze setki razy.**
