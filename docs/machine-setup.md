@@ -72,7 +72,28 @@ account is fine. It stays yours after the internship.
    [github.com/DigitalVantage](https://github.com/DigitalVantage). Accept it
    within 7 days, or it expires.
 
-## 3. Tools inside WSL
+## 3. Discord
+
+The team talks on the **Digital Vantage** Discord server. Questions, being
+stuck and day-to-day coordination go there.
+
+1. Create an account at **[discord.com/register](https://discord.com/register)**,
+   or use the one you have. Install the desktop app and the phone app, so you
+   see messages without a browser tab open.
+2. **Turn on two-factor authentication:** _User Settings → My Account → Enable
+   Authenticator App_. Save the backup codes next to your GitHub ones.
+3. **Join the server** with the invite link your mentor sends you. Invites are
+   never posted in this repository, because it is public.
+4. **Set your server nickname to your real name:** right-click the server icon
+   → _Edit Server Profile_. A reviewer must know that `anna-kowalska` on GitHub
+   and "Anna Kowalska" on Discord are the same person.
+5. Open the interns channel ([direct link](https://discord.com/channels/1499084674830565407/1556578325495808030), which works once you are on
+   the server). Introduce yourself in one message: name, GitHub username, what
+   you want to learn.
+6. Notifications: set the interns channel to _All messages_, the rest to
+   _Only @mentions_.
+
+## 4. Tools inside WSL
 
 Use the same versions as everyone else. A different version gives you bugs
 that nobody else can reproduce.
@@ -103,7 +124,7 @@ git config --global core.autocrlf input
 `core.autocrlf input` keeps Windows CRLF line endings out of commits. The
 email must be the private GitHub address from step 2, or the push is blocked.
 
-## 4. VS Code
+## 5. VS Code
 
 Install VS Code in Windows. Open a project **from the WSL terminal** with
 `code .`, so the editor, terminal and extensions all run inside Ubuntu. The
@@ -123,7 +144,7 @@ separate section in the list. This repository recommends them when you first
 open it, and its `.vscode/settings.json` turns on format on save and ESLint
 fixes on save.
 
-## 5. Connect Git to GitHub
+## 6. Connect Git to GitHub
 
 An SSH key lets Git talk to GitHub without a password:
 
@@ -136,7 +157,7 @@ ssh -T git@github.com    # "Hi <username>! You've successfully authenticated"
 Until your mentor adds you to the repository you can clone and read it, but not
 push branches.
 
-## 6. Checklist
+## 7. Checklist
 
 Your machine is ready when every line passes in the WSL terminal, inside this
 repository:
@@ -147,6 +168,8 @@ repository:
 - [ ] `pnpm -v` prints `12.9.1`
 - [ ] `git config core.autocrlf` prints `input`
 - [ ] GitHub: 2FA on, email private, invitation to DigitalVantage accepted
+- [ ] Discord: 2FA on, on the Digital Vantage server, nickname = your real name,
+      introduced in the interns channel
 - [ ] `git config user.email` prints your `@users.noreply.github.com` address
 - [ ] `ssh -T git@github.com` prints "successfully authenticated"
 - [ ] `gh auth status` shows you logged in to github.com
