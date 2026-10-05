@@ -30,7 +30,7 @@
     "prettier": "^3",
     "tailwindcss": "^4",
     "typescript": "^6",
-    "vitest": "^4"
+    "vitest": "^5.0.3"
   },
   "packageManager": "pnpm@12.9.1",
   "description": "Digital Vantage intern playground — practise the team workflow on a small Next.js app.",
