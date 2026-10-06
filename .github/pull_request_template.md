@@ -12,7 +12,7 @@ Closes #
 
 ## How I checked it 🇵🇱 Jak to sprawdziłem
 
-- [ ] `pnpm lint`, `pnpm typecheck` and `pnpm test --run` pass locally 🇵🇱 `pnpm lint`, `pnpm typecheck` i `pnpm test --run` przechodzą lokalnie
-- [ ] I looked at the change in the browser (`pnpm dev`) if it touches the UI 🇵🇱 Obejrzałem zmianę w przeglądarce (`pnpm dev`), jeśli dotyczy UI
-- [ ] `CHANGELOG.md` has an entry under `[Unreleased]` (for `feat` / `fix`) 🇵🇱 `CHANGELOG.md` ma wpis pod `[Unreleased]` (dla `feat` / `fix`)
-- [ ] No secrets, passwords, client names or personal data in the diff 🇵🇱 W diffie nie ma sekretów, haseł, nazw klientów ani danych osobowych
+- [ ] `pnpm lint`, `pnpm typecheck` and `pnpm test --run` pass locally 🇵🇱 _`pnpm lint`, `pnpm typecheck` i `pnpm test --run` przechodzą lokalnie_
+- [ ] I looked at the change in the browser (`pnpm dev`) if it touches the UI 🇵🇱 _Obejrzałem zmianę w przeglądarce (`pnpm dev`), jeśli dotyczy UI_
+- [ ] `CHANGELOG.md` has an entry under `[Unreleased]` (for `feat` / `fix`) 🇵🇱 _`CHANGELOG.md` ma wpis pod `[Unreleased]` (dla `feat` / `fix`)_
+- [ ] No secrets, passwords, client names or personal data in the diff 🇵🇱 _W diffie nie ma sekretów, haseł, nazw klientów ani danych osobowych_
