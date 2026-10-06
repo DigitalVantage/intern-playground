@@ -7,6 +7,8 @@ same pull request as the code.
 
 ### Docs
 
+- Issue and pull request templates (Onboarding, Task, Bug, PR) have a Polish
+  translation after each line, so both languages share one checklist.
 - Working hours and the daily log, in both READMEs.
 - Recommended free React and Next.js video courses, in English and Polish, with
   how to turn on translated subtitles.

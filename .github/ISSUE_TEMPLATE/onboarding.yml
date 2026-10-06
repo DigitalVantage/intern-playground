@@ -1,6 +1,6 @@
 name: Onboarding
-description: Your personal checklist for the first week. Everyone opens their own.
-title: 'Onboarding: <your first name>'
+description: Your personal checklist for the first week. Everyone opens their own. 🇵🇱 Twoja checklista na pierwszy tydzień. Każdy otwiera swoją.
+title: 'Onboarding: <your first name / Twoje imię>'
 labels: [onboarding]
 body:
   - type: markdown
@@ -9,54 +9,58 @@ body:
         Open this on your first day, then **assign it to yourself** (right sidebar → Assignees → *assign yourself*).
         Go through the steps **in order** and tick each box when it is done — the issue then shows your progress to you and your mentor.
         Stuck on a step for more than 30 minutes? Ask on Discord and link this issue.
+
+        🇵🇱 Otwórz to zadanie pierwszego dnia i **przypisz je do siebie** (pasek po prawej → Assignees → *assign yourself*).
+        Przechodź kroki **po kolei** i odhaczaj każdy, gdy jest zrobiony. Zadanie pokazuje wtedy Twój postęp Tobie i opiekunowi.
+        Utknąłeś na jakimś kroku dłużej niż 30 minut? Napisz na Discordzie i podlinkuj to zadanie.
   - type: checkboxes
     id: day-one
     attributes:
-      label: 1. Your machine and accounts (docs/machine-setup.md)
+      label: 1. Your machine and accounts (docs/machine-setup.md) 🇵🇱 Komputer i konta (docs/pl/machine-setup.md)
       options:
-        - label: GitHub account with 2FA and a private email; username sent to your mentor; invitation to DigitalVantage accepted
-        - label: Discord account with 2FA; joined the Digital Vantage server; nickname set to your real name; introduced yourself in the interns channel
-        - label: WSL2 + Ubuntu 24.04, Node 24, pnpm via corepack, Git configured with your private email
-        - label: VS Code opened from WSL with the recommended extensions
-        - label: SSH key on GitHub (`ssh -T git@github.com` greets you by name)
-        - label: Every line of the checklist in docs/machine-setup.md section 7 passes
+        - label: GitHub account with 2FA and a private email; username sent to your mentor; invitation to DigitalVantage accepted 🇵🇱 Konto GitHub z 2FA i prywatnym e-mailem; login wysłany do opiekuna; zaproszenie do DigitalVantage przyjęte
+        - label: Discord account with 2FA; joined the Digital Vantage server; nickname set to your real name; introduced yourself in the interns channel 🇵🇱 Konto Discord z 2FA; dołączenie do serwera Digital Vantage; pseudonim to Twoje prawdziwe imię; przedstawienie się na kanale praktykantów
+        - label: WSL2 + Ubuntu 24.04, Node 24, pnpm via corepack, Git configured with your private email 🇵🇱 WSL2 + Ubuntu 24.04, Node 24, pnpm przez corepack, Git skonfigurowany z prywatnym e-mailem
+        - label: VS Code opened from WSL with the recommended extensions 🇵🇱 VS Code uruchomiony z WSL z polecanymi rozszerzeniami
+        - label: SSH key on GitHub (`ssh -T git@github.com` greets you by name) 🇵🇱 Klucz SSH na GitHubie (`ssh -T git@github.com` wita Cię po imieniu)
+        - label: Every line of the checklist in docs/machine-setup.md section 7 passes 🇵🇱 Każda linijka checklisty z kroku 8 w docs/pl/machine-setup.md przechodzi
   - type: checkboxes
     id: read
     attributes:
-      label: 2. Read before writing code
+      label: 2. Read before writing code 🇵🇱 Przeczytaj, zanim zaczniesz pisać kod
       options:
-        - label: README.md, top to bottom
-        - label: docs/conventions.md (commits, pull requests, CHANGELOG, documentation)
-        - label: docs/github-guide.md (taking issues, branches, review)
-        - label: 'docs/learning.md (in Polish: docs/pl/learning.md) — picked the first course and watched its first part'
+        - label: README.md, top to bottom 🇵🇱 README.pl.md, od góry do dołu
+        - label: docs/conventions.md (commits, pull requests, CHANGELOG, documentation) 🇵🇱 docs/pl/conventions.md (commity, pull requesty, CHANGELOG, dokumentacja)
+        - label: docs/github-guide.md (taking issues, branches, review) 🇵🇱 docs/pl/github-guide.md (branie zadań, branche, review)
+        - label: docs/learning.md — picked the first course and watched its first part 🇵🇱 docs/pl/learning.md — wybrany pierwszy kurs i obejrzana jego pierwsza część
   - type: checkboxes
     id: first-pr
     attributes:
-      label: 3. Your first pull request (docs/first-pull-request.md, step by step)
+      label: 3. Your first pull request (docs/first-pull-request.md, step by step) 🇵🇱 Twój pierwszy pull request (docs/pl/first-pull-request.md, krok po kroku)
       options:
-        - label: Repository cloned, `.env.local` created, `pnpm dev` shows the interns list
-        - label: Branch `feat/add-<your-github-username>`; yourself added to `src/data/interns.ts`, sorted
-        - label: Saw the test fail when you put yourself in the wrong place, then fixed it
-        - label: CHANGELOG line; Conventional Commit; pull request opened with the template filled in
-        - label: Your teammate requested as a reviewer; every review comment answered
-        - label: The other one merged first? Rebased on `main` and resolved the conflict in `interns.ts` yourself (docs/github-guide.md §3)
-        - label: Merged — your name is on the home page
+        - label: Repository cloned, `.env.local` created, `pnpm dev` shows the interns list 🇵🇱 Repo sklonowane, `.env.local` utworzony, `pnpm dev` pokazuje listę praktykantów
+        - label: Branch `feat/add-<your-github-username>`; yourself added to `src/data/interns.ts`, sorted 🇵🇱 Branch `feat/add-<twój-login-github>`; Ty dopisany do `src/data/interns.ts`, we właściwej kolejności
+        - label: Saw the test fail when you put yourself in the wrong place, then fixed it 🇵🇱 Test nie przeszedł, gdy wpisałeś się w złym miejscu, a potem to poprawiłeś
+        - label: CHANGELOG line; Conventional Commit; pull request opened with the template filled in 🇵🇱 Linijka w CHANGELOG; opis commita wg Conventional Commits; pull request otwarty z wypełnionym szablonem
+        - label: Your teammate requested as a reviewer; every review comment answered 🇵🇱 Kolega dodany jako reviewer; każdy komentarz z review ma odpowiedź
+        - label: The other one merged first? Rebased on `main` and resolved the conflict in `interns.ts` yourself (docs/github-guide.md §3) 🇵🇱 Kolega zmergował pierwszy? Zrobiłeś rebase na `main` i sam rozwiązałeś konflikt w `interns.ts` (docs/pl/github-guide.md §3)
+        - label: Merged — your name is on the home page 🇵🇱 Zmergowane — Twoje imię jest na stronie głównej
   - type: checkboxes
     id: review
     attributes:
-      label: 4. Your first review
+      label: 4. Your first review 🇵🇱 Twoje pierwsze review
       options:
-        - label: Reviewed your teammate's first pull request with "Start a review" — at least one comment or suggestion, then Approve or Request changes
+        - label: Reviewed your teammate's first pull request with "Start a review" — at least one comment or suggestion, then Approve or Request changes 🇵🇱 Zrobiłeś review pierwszego pull requesta kolegi przez „Start a review” — co najmniej jeden komentarz lub sugestia, potem Approve albo Request changes
   - type: checkboxes
     id: practice
     attributes:
-      label: 5. One practice task
+      label: 5. One practice task 🇵🇱 Jedno zadanie ćwiczeniowe
       options:
-        - label: Took one unassigned issue labelled `practice` (search `is:open no:assignee label:practice`), assigned yourself, and merged it — each of you takes a different one
+        - label: Took one unassigned issue labelled `practice` (search `is:open no:assignee label:practice`), assigned yourself, and merged it — each of you takes a different one 🇵🇱 Wziąłeś jedno wolne zadanie z etykietą `practice` (szukaj `is:open no:assignee label:practice`), przypisałeś się i zmergowałeś — każdy bierze inne
   - type: checkboxes
     id: project
     attributes:
-      label: 6. On to the real project
+      label: 6. On to the real project 🇵🇱 Przejście do prawdziwego projektu
       options:
-        - label: Read docs/architecture.md in DigitalVantage/discord-daily-report
-        - label: Took issue #4 there (your own development bot) and agreed with your teammate who starts on which track
+        - label: Read docs/architecture.md in DigitalVantage/discord-daily-report 🇵🇱 Przeczytany docs/architecture.md w DigitalVantage/discord-daily-report
+        - label: Took issue #4 there (your own development bot) and agreed with your teammate who starts on which track 🇵🇱 Wzięte tamtejsze zadanie #4 (Twój własny bot do developmentu) i ustalone z kolegą, kto zaczyna od którego toru

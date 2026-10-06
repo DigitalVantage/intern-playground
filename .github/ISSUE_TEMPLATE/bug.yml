@@ -1,17 +1,17 @@
 name: Bug
-description: Something does not work the way it should.
+description: Something does not work the way it should. 🇵🇱 Coś nie działa tak, jak powinno.
 labels: [bug]
 body:
   - type: textarea
     id: steps
     attributes:
-      label: Steps to reproduce
-      placeholder: "1. Run `pnpm dev`\n2. Open http://localhost:3000\n3. ..."
+      label: Steps to reproduce 🇵🇱 Kroki do odtworzenia
+      placeholder: "1. Run `pnpm dev` / Uruchom `pnpm dev`\n2. Open http://localhost:3000 / Otwórz http://localhost:3000\n3. ..."
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Expected vs actual
+      label: Expected vs actual 🇵🇱 Co powinno się stać, a co się dzieje
     validations:
       required: true
