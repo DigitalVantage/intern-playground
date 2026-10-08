@@ -27,6 +27,7 @@ same pull request as the code.
 
 ### Added
 
+- Interns list: add Mykyta.
 - Onboarding issue template: a personal, ordered first-week checklist each
   intern opens for themselves.
 - `.env.example` with the page title as the first variable, and a README section on
