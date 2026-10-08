@@ -19,4 +19,9 @@ export const interns: Intern[] = [
     github: 'kbarejko',
     goal: 'Help every intern ship a first pull request in their first week.',
   },
+  {
+    name: 'xXx-N',
+    github: 'xXx-N',
+    goal: 'Learn web development and Git workflow.',
+  },
 ]
