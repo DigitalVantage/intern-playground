@@ -25,6 +25,9 @@ same pull request as the code.
 
 ### Added
 
+- Home page: shows how many people are on the list
+
+
 - Onboarding issue template: a personal, ordered first-week checklist each
   intern opens for themselves.
 - `.env.example` with the page title as the first variable, and a README section on

@@ -15,6 +15,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Intern playground — Digital Vantage',
   description: 'Where Digital Vantage interns practise the team workflow.',
+  openGraph: {
+    title: 'Intern playground — Digital Vantage',
+    description: 'Where Digital Vantage interns practise the team workflow.',
+    siteName: 'Digital Vantage',
+    locale: 'en',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {

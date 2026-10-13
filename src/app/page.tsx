@@ -1,5 +1,5 @@
 import { interns } from '@/data/interns'
-
+import { peopleSoFar } from '@/lib/count';
 // Set in .env.local (see .env.example); the fallback keeps the app working without one.
 const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Intern playground'
 
@@ -11,6 +11,9 @@ export default function Home() {
         <h1 className="text-4xl font-semibold">{appName}</h1>
         <p className="text-zinc-600 dark:text-zinc-400">
           Everyone below shipped their first pull request here.
+        </p>
+        <p className="text-zinc-600 dark:text-zinc-400">
+                   {peopleSoFar(interns.length)}
         </p>
       </header>
       <ul className="flex flex-col gap-4">
