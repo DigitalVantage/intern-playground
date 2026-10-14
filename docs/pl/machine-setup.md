@@ -154,16 +154,56 @@ Wszystkie polecenia z tego kroku wpisujesz **w terminalu Ubuntu**.
 ### Git i GitHub CLI
 
 ```bash
-sudo apt install -y git gh curl
+sudo apt install -y git curl wget
 ```
 
-✅ Po chwili wraca linia z `$`. Sprawdź:
+Instaluje Git oraz `curl` i `wget`, czyli programy do pobierania plików z
+internetu. ✅ Po chwili wraca linia z `$`. Sprawdź:
 
 ```bash
 git --version
 ```
 
 ✅ `git version 2.43.0` (albo wyższa).
+
+GitHub CLI (`gh`) instalujesz z pakietów GitHuba, **nie** przez
+`sudo apt install gh`: `gh` z Ubuntu (2.45) nie działa przy `gh issue view`
+i `gh pr view` (pisze `GraphQL: Projects (classic) is being deprecated`).
+Masz już tamto `gh`? Wpisz te same polecenia: podmienią je, a logowanie
+(`gh auth login`) zostaje.
+
+```bash
+sudo mkdir -p -m 755 /etc/apt/keyrings
+```
+
+Tworzy folder, w którym Ubuntu trzyma klucze dodatkowych źródeł pakietów.
+`sudo` pyta o hasło do Ubuntu; podczas pisania nic się nie wyświetla.
+
+```bash
+wget -nv -O- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+```
+
+Pobiera klucz GitHuba, żeby Ubuntu mogło sprawdzić, że pakiety naprawdę
+pochodzą od GitHuba. ✅ Brak wyniku.
+
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+```
+
+Dopisuje źródło pakietów GitHuba do listy Ubuntu. ✅ Brak wyniku.
+
+```bash
+sudo apt update && sudo apt install -y gh
+```
+
+Wczytuje nowe źródło i instaluje aktualne `gh` od GitHuba. ✅ Kończy się na
+`Setting up gh (2.…)`.
+
+```bash
+gh --version
+```
+
+✅ `gh version 2.50` albo nowsze.
 
 ### Node.js (przez nvm)
 
