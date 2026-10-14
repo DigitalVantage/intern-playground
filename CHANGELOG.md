@@ -7,6 +7,8 @@ same pull request as the code.
 
 ### Docs
 
+- GitHub CLI comes from GitHub's own package: Ubuntu's `gh` 2.45 fails on
+  `gh issue view` and `gh pr view`.
 - Issue and pull request templates (Onboarding, Task, Bug, PR) have a Polish
   translation after each line, so both languages share one checklist.
 - Working hours and the daily log, in both READMEs.

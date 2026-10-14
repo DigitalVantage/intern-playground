@@ -100,13 +100,51 @@ stuck and day-to-day coordination go there.
 Use the same versions as everyone else. A different version gives you bugs
 that nobody else can reproduce.
 
-| Tool       | Version       | Install                                                                            |
-| ---------- | ------------- | ---------------------------------------------------------------------------------- |
-| Node.js    | 24 LTS        | `nvm install 24 && nvm alias default 24`                                           |
-| pnpm       | 12.9.1        | `corepack enable`, which reads the version from `packageManager` in `package.json` |
-| Git        | 2.43 or newer | `sudo apt install git`                                                             |
-| GitHub CLI | 2.45 or newer | `sudo apt install gh`                                                              |
-| Docker     | 27 or newer   | Docker Desktop with WSL integration. Needed on projects with a database, not here  |
+| Tool       | Version       | Install                                                                                     |
+| ---------- | ------------- | ------------------------------------------------------------------------------------------- |
+| Node.js    | 24 LTS        | `nvm install 24 && nvm alias default 24`                                                    |
+| pnpm       | 12.9.1        | `corepack enable`, which reads the version from `packageManager` in `package.json`          |
+| Git        | 2.43 or newer | `sudo apt install git`                                                                      |
+| GitHub CLI | 2.50 or newer | GitHub's own package, below. Not `sudo apt install gh`: Ubuntu's 2.45 fails on `gh pr view` |
+| Docker     | 27 or newer   | Docker Desktop with WSL integration. Needed on projects with a database, not here           |
+
+GitHub CLI comes from GitHub's own package source. Ubuntu's `gh` (2.45) fails
+on `gh issue view` and `gh pr view` with
+`GraphQL: Projects (classic) is being deprecated`. Already installed it? Run
+the same commands: they replace it, and your `gh auth login` stays.
+
+```bash
+sudo mkdir -p -m 755 /etc/apt/keyrings
+```
+
+Creates the folder where Ubuntu keeps the keys of extra package sources.
+`sudo` asks for your Ubuntu password; nothing is shown while you type it.
+
+```bash
+wget -nv -O- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+```
+
+Downloads GitHub's key, so Ubuntu can check that the packages really come from
+GitHub. ✅ No output.
+
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+```
+
+Adds GitHub's package source to Ubuntu's list. ✅ No output.
+
+```bash
+sudo apt update && sudo apt install -y gh
+```
+
+Reads the new source and installs GitHub's current `gh`. ✅ Ends with
+`Setting up gh (2.…)`.
+
+```bash
+gh --version
+```
+
+✅ `gh version 2.50` or newer.
 
 Install Node only through [nvm](https://github.com/nvm-sh/nvm), never with
 `apt`. The Ubuntu package is several versions behind and cannot be switched per
