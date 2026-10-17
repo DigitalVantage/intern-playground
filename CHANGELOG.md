@@ -1,4 +1,5 @@
 # Changelog
+- The interns list rejects GitHub usernames that cannot exist.
 
 Every `feat` and `fix` pull request adds a line under `[Unreleased]`, in the
 same pull request as the code.
