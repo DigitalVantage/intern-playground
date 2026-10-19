@@ -26,6 +26,7 @@ same pull request as the code.
   code comments.
 
 ### Added
+
 - Interns list: add Mykyta.
 - Open Graph metadata for link previews.
 - Onboarding issue template: a personal, ordered first-week checklist each
