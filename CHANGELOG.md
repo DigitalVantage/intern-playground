@@ -27,6 +27,7 @@ same pull request as the code.
 
 ### Added
 
+- Dodano niestandardową stronę 404 (`src/app/not-found.tsx`)
 - Interns list: add Mykyta.
 - Open Graph metadata for link previews.
 - Onboarding issue template: a personal, ordered first-week checklist each
