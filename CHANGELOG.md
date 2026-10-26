@@ -27,6 +27,7 @@ same pull request as the code.
 
 ### Added
 
+- Our own page for addresses that do not exist.
 - Add custom 404 page layout with home link.
 - Dodano niestandardową stronę 404 (`src/app/not-found.tsx`)
 - Interns list: add Mykyta.
